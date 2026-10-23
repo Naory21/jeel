@@ -21,3 +21,8 @@ enable_signup = false
 [auth.email]
 enable_signup = true
 otp_length = 6
+
+# Email shows the 6-digit code (the home-screen app can't use a link opened from Mail).
+[auth.email.template.magic_link]
+subject = "קוד הכניסה שלך ל-Jeel"
+content_path = "./supabase/templates/magic_link.html"
