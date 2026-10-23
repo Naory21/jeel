@@ -10,3 +10,13 @@ verify_jwt = false
 
 [functions.whatsapp-webhook]
 verify_jwt = false
+
+# Login: email code / magic link only, and only for the two accounts made by scripts/setup-household.mjs.
+[auth]
+site_url = "https://naory21.github.io/jeel/"
+additional_redirect_urls = ["https://naory21.github.io/jeel/"]
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+otp_length = 6
