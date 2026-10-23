@@ -1,0 +1,25 @@
+# Function logic, database (Postgres in Docker) and end-to-end (PostgREST + headless Chrome) tests.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Edge Function logic
+        run: node --test tests/functions/functions.test.ts
+      - name: Database
+        run: node tests/db/run.mjs
+      - name: End to end
+        env:
+          CHROME_PATH: google-chrome
+        run: node tests/e2e/run.mjs

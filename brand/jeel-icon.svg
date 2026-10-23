@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Jeel">
+  <rect width="512" height="512" rx="116" fill="#0A0F1C"/>
+  <path d="M124 248 L256 138 L388 248" fill="none" stroke="#FFFFFF" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="210" cy="334" r="66" fill="#2F6BFF"/>
+  <circle cx="302" cy="334" r="66" fill="#F25C2A" stroke="#0A0F1C" stroke-width="14" paint-order="stroke"/>
+</svg>

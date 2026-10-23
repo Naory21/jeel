@@ -1,0 +1,12 @@
+{
+  "name": "jeel",
+  "private": true,
+  "description": "Jeel — shared tasks, reminders and shopping list for a two-person household (Hebrew, RTL)",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "start": "node server.js --open",
+    "test": "node --test tests/functions/functions.test.ts && node tests/db/run.mjs",
+    "test:e2e": "node tests/e2e/run.mjs",
+    "setup:household": "node scripts/setup-household.mjs"
+  }
+}

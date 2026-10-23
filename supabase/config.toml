@@ -1,0 +1,12 @@
+# Supabase CLI settings for Jeel. Only what differs from the CLI defaults.
+project_id = "jeel"
+
+[db]
+major_version = 17
+
+# Both functions check their own secret (x-cron-secret / Meta's signature), not a Supabase JWT.
+[functions.send-due-reminders]
+verify_jwt = false
+
+[functions.whatsapp-webhook]
+verify_jwt = false

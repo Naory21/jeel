@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Jeel logo concepts</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; padding: 32px; background: #EEF1F4; font-family: Rubik, sans-serif; color: #18212B; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .card { background: #fff; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .name { font-size: 13px; color: #56616E; letter-spacing: .04em; text-transform: uppercase; }
+  .lockup { display: flex; align-items: center; gap: 12px; }
+  .word { font-size: 40px; font-weight: 700; letter-spacing: -0.02em; }
+  .sizes { display: flex; align-items: end; gap: 14px; }
+  .dark { background: #18212B; border-radius: 14px; padding: 14px 18px; }
+  .dark .word { color: #fff; }
+  svg { display: block; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- A: roof over the two of you -->
+    <symbol id="a" viewBox="0 0 512 512">
+      <rect width="512" height="512" rx="116" fill="#18212B"/>
+      <path d="M128 246 L256 140 L384 246" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="212" cy="330" r="64" fill="#2457A6"/>
+      <circle cx="300" cy="330" r="64" fill="#B5531C" fill-opacity="0.92"/>
+    </symbol>
+    <!-- B: a "j" whose dot is a roof -->
+    <symbol id="b" viewBox="0 0 512 512">
+      <rect width="512" height="512" rx="116" fill="#18212B"/>
+      <path d="M216 166 L282 112 L348 166" fill="none" stroke="#fff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M282 222 V336 a72 72 0 0 1 -144 0" fill="none" stroke="#fff" stroke-width="44" stroke-linecap="round"/>
+    </symbol>
+    <!-- C: home with a check -->
+    <symbol id="c" viewBox="0 0 512 512">
+      <rect width="512" height="512" rx="116" fill="#18212B"/>
+      <path d="M128 242 L256 136 L384 242" fill="none" stroke="#fff" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M170 232 V376 H342 V232" fill="none" stroke="#fff" stroke-width="38" stroke-linecap="round" stroke-linejoin="round" opacity=".35"/>
+      <path d="M200 302 L240 342 L314 268" fill="none" stroke="#fff" stroke-width="38" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="grid">
+  <div class="card" id="A">
+    <span class="name">A · Roof over two</span>
+    <svg width="168" height="168"><use href="#a"/></svg>
+    <div class="lockup"><svg width="48" height="48"><use href="#a"/></svg><span class="word">Jeel</span></div>
+    <div class="sizes"><svg width="64" height="64"><use href="#a"/></svg><svg width="32" height="32"><use href="#a"/></svg><svg width="16" height="16"><use href="#a"/></svg></div>
+  </div>
+  <div class="card" id="B">
+    <span class="name">B · j with a roof</span>
+    <svg width="168" height="168"><use href="#b"/></svg>
+    <div class="lockup"><svg width="48" height="48"><use href="#b"/></svg><span class="word">Jeel</span></div>
+    <div class="sizes"><svg width="64" height="64"><use href="#b"/></svg><svg width="32" height="32"><use href="#b"/></svg><svg width="16" height="16"><use href="#b"/></svg></div>
+  </div>
+  <div class="card" id="C">
+    <span class="name">C · Home + done</span>
+    <svg width="168" height="168"><use href="#c"/></svg>
+    <div class="lockup"><svg width="48" height="48"><use href="#c"/></svg><span class="word">Jeel</span></div>
+    <div class="sizes"><svg width="64" height="64"><use href="#c"/></svg><svg width="32" height="32"><use href="#c"/></svg><svg width="16" height="16"><use href="#c"/></svg></div>
+  </div>
+</div>
+</body>
+</html>

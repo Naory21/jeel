@@ -1,0 +1,2171 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
+<meta name="theme-color" content="#F3F5F9" id="theme-color">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Jeel">
+<meta name="application-name" content="Jeel">
+<title>Jeel</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+  // theme before first paint: 'light' | 'dark' | system (no attribute)
+  try { const t = localStorage.getItem('jeel.theme'); if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t; } catch {}
+</script>
+<style>
+/* ---------- design tokens: light ---------- */
+:root {
+  color-scheme: light;
+  --bg: #F3F5F9; --surface: #FFFFFF; --surface-2: #EEF1F6; --line: #E1E6EE; --field: #C8D0DC; --box: #8A94A7;
+  --ink: #0A0F1C; --on-ink: #FFFFFF; --muted: #5A6478; --done: #8A93A4;
+  --accent: #0891B2; --accent-hi: #06B6D4; --accent-soft: rgba(6, 182, 212, .12); --on-accent: #FFFFFF;
+  --hot: #C2410C; --hot-solid: #EA580C;
+  --panel: #0A0F1C; --panel-fg: #F4F7FC; --panel-sub: #94A0B6; --panel-line: #1E293D; --panel-late: #FDBA74;
+  --naor: #2F6BFF; --naor-bg: #E7EEFF; --naor-fg: #1D4ED8;
+  --partner: #F25C2A; --partner-bg: #FFEBE3; --partner-fg: #C2410C;
+  --both: #7C5CFF; --both-bg: #EFEBFF; --both-fg: #5B3FE0;
+  --net-bg: #FFF1E7; --net-fg: #9A3412;
+  --toast-bg: #0A0F1C; --toast-fg: #F4F7FC;
+  --overlay: rgba(10, 15, 28, .55);
+  --grid: rgba(10, 15, 28, .045);
+  --r-card: 10px; --r-ctl: 8px; --r-chip: 4px;
+  --mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Consolas, monospace;
+  --kb: 0px;
+}
+/* ---------- dark: follows the phone, unless chosen in the account sheet ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #05080F; --surface: #0C121D; --surface-2: #131B29; --line: #1B2435; --field: #2A364B; --box: #4E5C75;
+    --ink: #E7EDF6; --on-ink: #05080F; --muted: #8591A7; --done: #5E6A80;
+    --accent: #22D3EE; --accent-hi: #22D3EE; --accent-soft: rgba(34, 211, 238, .14); --on-accent: #04121A;
+    --hot: #FB923C; --hot-solid: #F97316;
+    --panel: #0E1624; --panel-fg: #F1F5FB; --panel-sub: #8591A7; --panel-line: #22304A; --panel-late: #FDBA74;
+    --naor: #4D82FF; --naor-bg: rgba(77, 130, 255, .16); --naor-fg: #A4BEFF;
+    --partner: #FF6B3D; --partner-bg: rgba(255, 107, 61, .16); --partner-fg: #FFB49B;
+    --both: #9B85FF; --both-bg: rgba(155, 133, 255, .17); --both-fg: #CBBFFF;
+    --net-bg: rgba(249, 115, 22, .14); --net-fg: #FDBA74;
+    --toast-bg: #E7EDF6; --toast-fg: #05080F;
+    --overlay: rgba(0, 0, 0, .62);
+    --grid: rgba(148, 163, 184, .06);
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #05080F; --surface: #0C121D; --surface-2: #131B29; --line: #1B2435; --field: #2A364B; --box: #4E5C75;
+  --ink: #E7EDF6; --on-ink: #05080F; --muted: #8591A7; --done: #5E6A80;
+  --accent: #22D3EE; --accent-hi: #22D3EE; --accent-soft: rgba(34, 211, 238, .14); --on-accent: #04121A;
+  --hot: #FB923C; --hot-solid: #F97316;
+  --panel: #0E1624; --panel-fg: #F1F5FB; --panel-sub: #8591A7; --panel-line: #22304A; --panel-late: #FDBA74;
+  --naor: #4D82FF; --naor-bg: rgba(77, 130, 255, .16); --naor-fg: #A4BEFF;
+  --partner: #FF6B3D; --partner-bg: rgba(255, 107, 61, .16); --partner-fg: #FFB49B;
+  --both: #9B85FF; --both-bg: rgba(155, 133, 255, .17); --both-fg: #CBBFFF;
+  --net-bg: rgba(249, 115, 22, .14); --net-fg: #FDBA74;
+  --toast-bg: #E7EDF6; --toast-fg: #05080F;
+  --overlay: rgba(0, 0, 0, .62);
+  --grid: rgba(148, 163, 184, .06);
+}
+
+/* ---------- base ---------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: Rubik, 'Segoe UI', Tahoma, sans-serif; -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent; }
+button, input, select, textarea { font-family: inherit; color: inherit; }
+button { cursor: pointer; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--accent-hi); outline-offset: 2px; }
+.num, .stat b, .time, .qty, .badge, .count { font-family: var(--mono); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+
+.app {
+  max-width: 480px; margin: 0 auto; height: 100dvh; display: flex; flex-direction: column; position: relative;
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--grid) 1px, transparent 1px);   /* faint dot grid */
+  background-size: 18px 18px;
+}
+header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: max(18px, env(safe-area-inset-top)) 16px 12px; }
+.brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.logo { width: 38px; height: 38px; flex: none; border-radius: 9px; box-shadow: 0 0 0 1px var(--line); display: block; }
+.date { font-size: 12px; color: var(--muted); letter-spacing: .01em; }
+h1 { margin: 1px 0 0; font-size: 22px; font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.pair { display: flex; align-items: center; background: none; border: 0; padding: 0; min-height: 44px; touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+.av { width: 34px; height: 34px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 14px; border: 2px solid var(--bg); flex: none; }
+.av + .av { margin-inline-start: -9px; }
+.av.me { box-shadow: 0 0 0 2px var(--accent-hi); }
+.net { margin: 0 16px 8px; padding: 8px 12px; border-radius: var(--r-ctl); background: var(--net-bg); color: var(--net-fg); font-size: 13px; display: flex; gap: 8px; align-items: center; border: 1px solid color-mix(in srgb, var(--net-fg) 25%, transparent); }
+
+main { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: thin; padding: 4px 16px 20px; }
+.view { display: flex; flex-direction: column; gap: 12px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; }
+.card.form { gap: 10px; }
+.card h2 { margin: 0 0 6px; font-size: 15px; font-weight: 600; letter-spacing: -0.005em; }
+.card h2.dim { color: var(--muted); }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.card-head h2 { margin: 0; }
+
+/* dark instrument panel: next reminder, due alerts, shopping progress */
+.hero, .alert, .progress {
+  background: var(--panel); color: var(--panel-fg); border: 1px solid var(--panel-line); border-radius: var(--r-card);
+  box-shadow: inset 0 2px 0 var(--accent-hi);                   /* thin accent edge */
+}
+.hero { padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.hero-label { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--accent-hi); font-weight: 500; letter-spacing: .02em; }
+.hero-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.hero-title { font-size: 17px; font-weight: 600; display: block; overflow-wrap: anywhere; }
+.hero-sub { font-size: 13px; color: var(--panel-sub); }
+.hero-sub.late { color: var(--panel-late); font-weight: 500; }
+.hero-actions { display: flex; gap: 8px; flex: none; }
+.btn-light { min-height: 44px; padding: 0 16px; border-radius: var(--r-ctl); border: 0; background: var(--accent-hi); color: #04121A; font-size: 14px; font-weight: 600; flex: none; }
+.btn-ghost { min-height: 44px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid var(--panel-line); background: transparent; color: var(--panel-fg); font-size: 13px; font-weight: 500; flex: none; }
+.link { min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: var(--accent); font-size: 14px; font-weight: 500; }
+.btn-outline { min-height: 44px; padding: 0 12px; border: 1px solid var(--field); border-radius: var(--r-ctl); background: var(--surface); font-size: 13px; font-weight: 500; }
+.btn-dark { min-height: 44px; padding: 0 16px; border-radius: var(--r-ctl); border: 0; background: var(--ink); color: var(--on-ink); font-size: 14px; font-weight: 600; flex: none; }
+
+.alerts { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+.alert { padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: inset 0 2px 0 var(--hot-solid); }
+.alert-top { display: flex; align-items: flex-start; gap: 10px; }
+.alert-top > div { flex: 1; min-width: 0; }
+.alert .x { color: var(--panel-sub); width: 36px; height: 36px; margin: -6px; }
+.alert .x:hover { background: var(--panel-line); }
+
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-card); padding: 12px; min-height: 88px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 6px; text-align: start; position: relative; overflow: hidden; }
+.stat::after { content: ''; position: absolute; inset-inline-start: 12px; bottom: 0; width: 18px; height: 2px; background: var(--accent-hi); }
+.stat:hover { border-color: var(--field); }
+.stat b { font-size: 26px; font-weight: 700; line-height: 1; }
+.stat span { font-size: 12px; color: var(--muted); line-height: 1.3; }
+
+.row { display: flex; align-items: center; gap: 6px; border-top: 1px solid var(--line); padding: 2px 0; }
+.row.pending { opacity: .55; }
+.check { width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; }
+.check:disabled { cursor: default; }
+.box { width: 22px; height: 22px; border-radius: 5px; border: 1.5px solid var(--box); background: var(--surface); display: flex; align-items: center; justify-content: center; color: var(--on-accent); transition: background .12s, border-color .12s; }
+.box.round { border-radius: 50%; }
+.box.on { border-color: var(--accent-hi); background: var(--accent-hi); }
+.check:hover .box:not(.on) { border-color: var(--accent); }
+.body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 0; }
+button.body { background: none; border: 0; margin: 0; text-align: start; border-radius: var(--r-ctl); padding-inline: 4px; min-height: 44px; }
+button.body.edit:hover .title { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+button.body.edit:hover .title.done { text-decoration: line-through; }
+.body.inline { flex-direction: row; align-items: center; gap: 8px; padding: 10px 4px; flex-wrap: wrap; }
+.title { font-size: 15px; font-weight: 500; overflow-wrap: anywhere; }
+.title.done { color: var(--done); text-decoration: line-through; font-weight: 400; }
+.meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.chip { font-size: 11.5px; font-weight: 600; padding: 2px 7px; border-radius: var(--r-chip); }
+.due { font-size: 12px; font-weight: 500; color: var(--muted); }
+.due.hot { color: var(--hot); }
+.time { font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.time.hot { color: var(--hot); }
+.rep { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
+.qty { font-size: 11.5px; color: var(--muted); background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--r-chip); padding: 1px 6px; }
+.by { width: 22px; height: 22px; flex: none; border-radius: 50%; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+.x { width: 44px; height: 44px; flex: none; border: 0; background: transparent; color: var(--muted); display: flex; align-items: center; justify-content: center; border-radius: var(--r-ctl); }
+.x:hover { background: var(--surface-2); color: var(--ink); }
+.empty { margin: 0; padding: 12px 0; font-size: 14px; color: var(--muted); border-top: 1px solid var(--line); }
+.empty-card { margin: 0; padding: 16px; font-size: 14px; color: var(--muted); background: var(--surface); border: 1px dashed var(--field); border-radius: var(--r-card); }
+.notice { margin: 0; padding: 10px 12px; border-radius: var(--r-ctl); background: var(--accent-soft); color: var(--ink); border: 1px solid color-mix(in srgb, var(--accent-hi) 35%, transparent); font-size: 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+
+.feed { display: flex; align-items: flex-start; gap: 10px; }
+.feed .av { width: 28px; height: 28px; font-size: 12px; border: 0; }
+.feed-text { font-size: 14px; line-height: 1.4; overflow-wrap: anywhere; }
+.feed-time { font-size: 11.5px; color: var(--muted); }
+.feed-list { display: flex; flex-direction: column; gap: 12px; }
+
+.line { display: flex; gap: 8px; }
+.field { flex: 1; min-width: 0; height: 44px; border: 1px solid var(--field); border-radius: var(--r-ctl); padding: 0 12px; font-size: 16px; background: var(--surface); color: var(--ink); transition: border-color .12s, box-shadow .12s; }
+.field:focus { outline: none; border-color: var(--accent-hi); box-shadow: 0 0 0 3px var(--accent-soft); }
+.field::placeholder { color: var(--box); }
+.field.qtyf { flex: none; width: 70px; padding: 0 8px; text-align: center; font-family: var(--mono); }
+.field.timef { flex: none; padding: 0 10px; font-family: var(--mono); font-size: 15px; }
+.add { width: 44px; height: 44px; flex: none; border: 0; border-radius: var(--r-ctl); background: var(--ink); color: var(--on-ink); display: flex; align-items: center; justify-content: center; }
+.add:hover, .btn-dark:hover { background: color-mix(in srgb, var(--ink) 88%, var(--accent-hi)); }
+.opts { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.opts > .lbl { font-size: 12px; color: var(--muted); min-width: 52px; align-self: flex-start; line-height: 44px; }
+.opts > .opts { flex: 1; min-width: 0; }   /* pills wrap inside their own box, next to the row label */
+.pill { min-height: 40px; padding: 0 12px; border-radius: var(--r-ctl); border: 1px solid var(--field); background: var(--surface); font-size: 14px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.pill:hover { border-color: var(--box); }
+.pill[aria-pressed="true"] { color: var(--on-ink); }
+.days { display: flex; gap: 4px; justify-content: space-between; }
+.pill.day { flex: 1; min-width: 0; max-width: 48px; min-height: 44px; padding: 0; justify-content: center; }
+.composer:not(.open) .more { display: none; }
+.more { display: flex; flex-direction: column; gap: 10px; padding-top: 2px; }
+.hint { font-size: 12px; color: var(--muted); }
+
+.progress { padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.progress-top { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-size: 14px; }
+.bar { height: 4px; border-radius: 2px; background: var(--panel-line); overflow: hidden; }
+.bar > div { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--accent-hi), #3B82F6); transition: width .3s; }
+
+nav { display: flex; background: var(--surface); border-top: 1px solid var(--line); padding: 4px 8px max(12px, env(safe-area-inset-bottom)); flex: none; }
+nav button { flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: transparent; border: 0; color: var(--muted); font-size: 11.5px; font-weight: 500; position: relative; }
+nav button .ic { padding: 4px 14px; border-radius: var(--r-ctl); display: flex; position: relative; }
+nav button[aria-current="page"] { color: var(--ink); }
+nav button[aria-current="page"] .ic { color: var(--accent); background: var(--accent-soft); }
+nav button[aria-current="page"]::before { content: ''; position: absolute; top: -5px; width: 24px; height: 2px; border-radius: 0 0 2px 2px; background: var(--accent-hi); }
+.badge { position: absolute; top: -3px; inset-inline-end: 4px; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 9px; background: var(--hot-solid); color: #fff; font-size: 10.5px; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 0 2px var(--surface); }
+
+.sheet-bg { position: fixed; inset: 0; background: var(--overlay); display: flex; align-items: flex-end; justify-content: center; z-index: 10; padding-bottom: var(--kb); backdrop-filter: blur(2px); }
+.sheet { background: var(--surface); color: var(--ink); width: 100%; max-width: 480px; max-height: calc(100dvh - var(--kb) - 24px); overflow-y: auto; border: 1px solid var(--line); border-bottom: 0; border-radius: 14px 14px 0 0; padding: 18px 16px max(20px, env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 12px; box-shadow: inset 0 2px 0 var(--accent-hi); }
+.sheet h2 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+.sheet h2:focus { outline: none; }
+.sheet p { margin: 0; font-size: 14px; color: var(--muted); }
+.sheet > .field { flex: none; }
+.sheet-brand { display: flex; align-items: center; gap: 10px; }
+.sheet-brand .logo { width: 30px; height: 30px; border-radius: 7px; }
+.pick { display: flex; align-items: center; gap: 12px; min-height: 56px; padding: 0 14px; border: 1px solid var(--field); border-radius: var(--r-card); background: var(--surface); font-size: 16px; font-weight: 500; text-align: start; }
+.pick[aria-pressed="true"] { border-color: var(--accent-hi); box-shadow: 0 0 0 1px var(--accent-hi); }
+.pick .av { border: 0; }
+.seg { display: flex; border: 1px solid var(--field); border-radius: var(--r-ctl); overflow: hidden; flex: 1; }
+.seg button { flex: 1; min-height: 40px; border: 0; background: var(--surface); font-size: 13px; font-weight: 500; color: var(--muted); }
+.seg button + button { border-inline-start: 1px solid var(--field); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--on-ink); }
+
+.toast { position: fixed; bottom: calc(92px + var(--kb)); inset-inline: 16px; max-width: 448px; margin: 0 auto; background: var(--toast-bg); color: var(--toast-fg); padding: 6px; padding-inline-start: 14px; min-height: 48px; border-radius: var(--r-ctl); font-size: 14px; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 8px 24px rgba(0, 0, 0, .28); }
+.toast.top { bottom: auto; top: max(16px, env(safe-area-inset-top)); }
+.toast span { padding: 6px 0; }
+.toast button { min-height: 36px; padding: 0 12px; border-radius: 6px; border: 0; background: var(--accent-hi); color: #04121A; font-size: 14px; font-weight: 600; flex: none; }
+#task-filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: -16px; padding-inline: 16px; }
+#task-filters .pill { flex: none; }
+.sortbar { display: flex; align-items: center; gap: 4px; }
+.sort-select { height: 36px; border: 1px solid var(--field); border-radius: var(--r-ctl); background: var(--surface); color: var(--ink); font-size: 13px; padding: 0 8px; }
+.sort-select:focus { outline: none; border-color: var(--accent-hi); }
+.sort-dir { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--field); border-radius: var(--r-ctl); background: var(--surface); color: var(--ink); padding: 0; }
+.sort-dir svg { transition: transform .15s; }
+.sort-dir[data-dir="-1"] svg { transform: rotate(180deg); }
+.loading { padding: 40px 0; text-align: center; color: var(--muted); }
+
+/* header settings button + settings menu */
+.head-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.icon-btn { width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--line); border-radius: var(--r-ctl); background: var(--surface); color: var(--ink); padding: 0; }
+.icon-btn:hover { border-color: var(--field); color: var(--accent); }
+.set-section { display: flex; flex-direction: column; gap: 8px; }
+.set-label { margin: 4px 0 0; font-size: 12px; font-weight: 600; color: var(--accent); letter-spacing: .02em; }
+.set-list { border: 1px solid var(--line); border-radius: var(--r-card); overflow: hidden; background: var(--surface); }
+.set-row { width: 100%; min-height: 56px; display: flex; align-items: center; gap: 12px; padding: 8px 12px; border: 0; background: transparent; text-align: start; color: var(--ink); }
+.set-row + .set-row { border-top: 1px solid var(--line); }
+.set-row:hover { background: var(--surface-2); }
+.set-ic { width: 34px; height: 34px; flex: none; border-radius: var(--r-ctl); display: flex; align-items: center; justify-content: center; background: var(--accent-soft); color: var(--accent); }
+.set-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.set-text b { font-size: 15px; font-weight: 600; }
+.set-text small { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.set-row .chev { color: var(--box); flex: none; }
+.set-row.danger .set-ic { background: color-mix(in srgb, var(--hot-solid) 14%, transparent); color: var(--hot); }
+.set-row.danger b { color: var(--hot); }
+.list-bar { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: var(--r-card); background: var(--surface); color: var(--ink); text-align: start; min-height: 64px; }
+.list-bar:hover { border-color: var(--field); }
+.list-bar .set-text b { font-size: 16px; }
+.list-bar-action { display: flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 500; color: var(--accent); flex: none; }
+.list-bar .dirty { color: var(--hot); }
+.current-list { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid color-mix(in srgb, var(--accent-hi) 45%, var(--line)); border-radius: var(--r-card); background: var(--accent-soft); }
+.current-list .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.current-list .name { font-size: 15px; font-weight: 600; }
+.current-list .preview { font-size: 12px; color: var(--muted); }
+.saved-list { border-top: 1px solid var(--line); padding: 10px 0; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.saved-list .actions { display: flex; gap: 8px; flex: 1 1 100%; }
+.saved-list .actions .btn-dark, .saved-list .actions .btn-outline { flex: 1; }
+.is-current { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: var(--r-chip); background: var(--accent-soft); color: var(--accent); margin-inline-start: 6px; }
+.note { flex-basis: 100%; display: flex; align-items: center; gap: 4px; font-size: 12.5px; color: var(--muted); }
+.note svg { flex: none; color: var(--accent); }
+.note-field { height: auto; min-height: 64px; padding: 10px 12px; resize: vertical; line-height: 1.4; }
+.saved-list .info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.saved-list .name { font-size: 15px; font-weight: 600; overflow-wrap: anywhere; }
+.saved-list .preview { font-size: 12px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* audit trail */
+.audit-list { display: flex; flex-direction: column; }
+.audit-day { font-size: 11.5px; font-weight: 600; color: var(--accent); letter-spacing: .02em; padding: 12px 0 4px; }
+.audit-row { border-top: 1px solid var(--line); padding: 10px 0; display: flex; flex-direction: column; gap: 4px; }
+.audit-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.audit-top .av { width: 22px; height: 22px; font-size: 11px; border: 0; }
+.audit-time { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+.tag { font-size: 11px; font-weight: 600; padding: 1px 6px; border-radius: var(--r-chip); background: var(--surface-2); color: var(--muted); border: 1px solid var(--line); }
+.tag.via-whatsapp { color: #16A34A; border-color: color-mix(in srgb, #16A34A 35%, transparent); }
+.tag.via-system { color: var(--accent); border-color: color-mix(in srgb, var(--accent-hi) 35%, transparent); }
+.audit-what { font-size: 14px; font-weight: 500; overflow-wrap: anywhere; }
+.audit-what .act-insert { color: #16A34A; } .audit-what .act-delete { color: var(--hot); } .audit-what .act-update { color: var(--accent); }
+.audit-diff { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-size: 12.5px; color: var(--muted); }
+.audit-diff .f { display: inline-block; min-width: 64px; color: var(--muted); }
+.audit-diff s { color: var(--done); }
+.audit-diff b { color: var(--ink); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="brand">
+      <img class="logo" src="icons/icon.svg" alt="Jeel">
+      <div style="min-width:0">
+        <div class="date" id="today-label"></div>
+        <h1 id="title">Jeel</h1>
+      </div>
+    </div>
+    <div class="head-actions">
+      <button class="pair" id="who-btn" type="button" aria-label="הגדרות והחשבון"></button>
+      <button class="icon-btn" id="settings-btn" type="button" data-act="settings" aria-label="הגדרות" title="הגדרות">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+  <div class="net" id="net" role="status" hidden></div>
+
+  <main>
+    <div class="loading" id="loading">טוען…</div>
+    <div class="alerts" id="alerts" aria-live="polite"></div>
+
+    <!-- ============ HOME ============ -->
+    <div class="view" id="v-home" hidden>
+      <div class="stats">
+        <button class="stat" type="button" data-act="tab" data-val="tasks"><b id="st-tasks">0</b><span>משימות פתוחות</span></button>
+        <button class="stat" type="button" data-act="tab" data-val="reminders"><b id="st-rems">0</b><span>תזכורות להיום</span></button>
+        <button class="stat" type="button" data-act="tab" data-val="shopping"><b id="st-shop">0</b><span>פריטים לקנות</span></button>
+      </div>
+      <section class="hero">
+        <div class="hero-label"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span id="hero-label">התזכורת הבאה להיום</span></div>
+        <div id="hero-body"></div>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>משימות להיום</h2><button class="link" type="button" data-act="tab" data-val="tasks">לכל המשימות</button></div>
+        <div id="home-tasks"></div>
+      </section>
+      <section class="card">
+        <div class="card-head" style="margin-bottom:6px"><h2>עדכונים אחרונים</h2><button class="link" type="button" data-act="history">הכול</button></div>
+        <div class="feed-list" id="feed"></div>
+      </section>
+    </div>
+
+    <!-- ============ TASKS ============ -->
+    <div class="view" id="v-tasks" hidden>
+      <div class="opts" role="group" aria-label="סינון משימות" id="task-filters"></div>
+      <section class="card form composer" data-composer="task">
+        <div class="line">
+          <label for="task-input" class="sr">משימה חדשה</label>
+          <input id="task-input" class="field" type="text" maxlength="200" placeholder="מה צריך לעשות?" enterkeyhint="done" autocomplete="off" data-main>
+          <button class="add" type="button" data-act="add-task" aria-label="הוספת משימה"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <div class="more">
+          <div class="opts"><span class="lbl">באחריות</span><span class="opts" id="task-who"></span></div>
+          <div class="opts"><span class="lbl">מתי</span><span class="opts"><span id="task-due" style="display:contents"></span>
+            <label for="task-date" class="sr">תאריך מסוים</label>
+            <input id="task-date" class="field timef" type="date" data-date-for="task"></span></div>
+          <div class="opts">
+            <label for="task-time" class="lbl">שעה</label>
+            <input id="task-time" class="field timef" type="time">
+            <button class="x" type="button" data-act="clear-time" data-val="task-time" aria-label="בלי שעה" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+            <span class="hint" data-hint="task-time">לא חובה</span>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <div class="card-head" style="margin-bottom:6px">
+          <h2 id="open-h"></h2>
+          <div class="sortbar">
+            <label for="task-sort" class="sr">מיון לפי</label>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="color:var(--muted)"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            <select id="task-sort" class="sort-select">
+              <option value="due">מועד</option><option value="title">שם</option><option value="who">באחריות</option><option value="created">תאריך יצירה</option>
+            </select>
+            <button class="sort-dir" type="button" id="task-sort-dir" data-act="sort-dir"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
+          </div>
+        </div>
+        <div id="open-tasks"></div></section>
+      <section class="card" id="done-card"><h2 class="dim" id="done-h"></h2><div id="done-tasks"></div></section>
+    </div>
+
+    <!-- ============ REMINDERS ============ -->
+    <div class="view" id="v-reminders" hidden>
+      <div class="notice" id="notif-card" hidden><span>התראות בדפדפן כבויות</span><button class="btn-outline" type="button" data-act="enable-notif">הפעלה</button></div>
+      <section class="card form composer" data-composer="rem">
+        <div class="line">
+          <label for="rem-input" class="sr">תזכורת חדשה</label>
+          <input id="rem-input" class="field" type="text" maxlength="200" placeholder="על מה להזכיר?" enterkeyhint="done" autocomplete="off" data-main>
+          <button class="add" type="button" data-act="add-rem" aria-label="הוספת תזכורת"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <div class="more">
+          <div class="opts"><span class="lbl">מתי</span><span class="opts"><span id="rem-when" style="display:contents"></span>
+            <label for="rem-date" class="sr">תאריך מסוים</label>
+            <input id="rem-date" class="field timef" type="date" data-date-for="rem"></span></div>
+          <div class="opts">
+            <label for="rem-time" class="lbl">שעה</label>
+            <input id="rem-time" class="field timef" type="time" value="19:00">
+            <span class="hint due hot" id="rem-time-hint" hidden>השעה עברה — תיקבע למחר</span>
+          </div>
+          <div class="opts" role="group" aria-label="חזרה"><span class="lbl">חזרה</span><span class="opts" id="rem-repeat"></span></div>
+          <div class="days" role="group" aria-label="באילו ימים" id="rem-days" hidden></div>
+          <div class="opts"><span class="lbl">למי</span><span class="opts" id="rem-who"></span></div>
+        </div>
+      </section>
+      <div class="view" id="rem-groups"></div>
+    </div>
+
+    <!-- ============ SHOPPING ============ -->
+    <div class="view" id="v-shopping" hidden>
+      <button class="list-bar" type="button" data-act="lists-open" id="list-bar" aria-describedby="list-bar-meta">
+        <span class="set-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/></svg></span>
+        <span class="set-text"><small>הרשימה שמוצגת</small><b id="list-bar-name">רשימה ללא שם</b><small id="list-bar-meta"></small></span>
+        <span class="list-bar-action">רשימות<svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></span>
+      </button>
+      <section class="progress" id="shop-progress">
+        <div class="progress-top"><span style="font-weight:600" id="shop-collected"></span><span class="hero-sub" id="shop-left"></span></div>
+        <div class="bar"><div id="shop-bar" style="width:0"></div></div>
+      </section>
+      <section class="card form composer" data-composer="item">
+        <div class="line">
+          <label for="item-input" class="sr">פריט חדש</label>
+          <input id="item-input" class="field" type="text" maxlength="120" placeholder="מה חסר בבית?" enterkeyhint="done" autocomplete="off" data-main>
+          <label for="item-qty" class="sr">כמות</label>
+          <input id="item-qty" class="field qtyf" type="text" maxlength="30" value="1" placeholder="כמות" enterkeyhint="done" autocomplete="off">
+          <button class="add" type="button" data-act="add-item" aria-label="הוספה לרשימה"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        </div>
+        <div class="more">
+          <div class="line" style="align-items:center">
+            <label for="item-cat" style="font-size:13px;color:var(--muted);min-width:52px">קטגוריה</label>
+            <select id="item-cat" class="field" style="padding:0 12px">
+              <option>פירות וירקות</option><option>מוצרי חלב</option><option>מאפים</option><option>יבשים</option><option>ניקיון ובית</option><option>אחר</option>
+            </select>
+          </div>
+          <div class="line" style="align-items:center">
+            <label for="item-note" style="font-size:13px;color:var(--muted);min-width:52px">הערה</label>
+            <input id="item-note" class="field" type="text" maxlength="200" placeholder="לא חובה, למשל: ללא לקטוז" autocomplete="off" enterkeyhint="done">
+          </div>
+        </div>
+      </section>
+      <div class="view" id="cat-groups"></div>
+      <section class="card" id="cart-card">
+        <div class="card-head" style="margin-bottom:6px"><h2 class="dim" id="cart-h"></h2><button class="btn-outline" type="button" data-act="clear-cart">סיום קנייה</button></div>
+        <div id="cart"></div>
+      </section>
+    </div>
+  </main>
+
+  <nav aria-label="ניווט ראשי">
+    <button type="button" data-act="tab" data-val="home"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-5h4v5"/></svg></span><span>בית</span></button>
+    <button type="button" data-act="tab" data-val="tasks"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></span><span>משימות</span></button>
+    <button type="button" data-act="tab" data-val="reminders"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="badge" id="rem-badge" hidden></span></span><span>תזכורות</span></button>
+    <button type="button" data-act="tab" data-val="shopping"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"/><circle cx="10" cy="19.5" r="1.3"/><circle cx="17" cy="19.5" r="1.3"/></svg><span class="badge" id="shop-badge" hidden></span></span><span>קניות</span></button>
+  </nav>
+</div>
+
+<!-- who is using this device: step 1 pick, step 2 name -->
+<div class="sheet-bg" id="who-sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="who-h">
+    <div id="who-step1" style="display:flex;flex-direction:column;gap:12px">
+      <div class="card-head">
+        <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="who-h" tabindex="-1">הגדרות</h2></div>
+        <button class="btn-outline" type="button" data-act="close-sheet" id="who-close">סגירה</button>
+      </div>
+      <p id="who-sub"></p>
+      <section class="set-section" aria-labelledby="set-user">
+        <h3 class="set-label" id="set-user">משתמש</h3>
+        <div id="who-picks" style="display:flex;flex-direction:column;gap:8px"></div>
+      </section>
+      <section class="set-section" aria-labelledby="set-look">
+        <h3 class="set-label" id="set-look">מראה</h3>
+        <div class="seg" id="theme-seg" role="group" aria-labelledby="set-look">
+          <button type="button" data-act="theme" data-val="system">לפי הטלפון</button>
+          <button type="button" data-act="theme" data-val="light">בהיר</button>
+          <button type="button" data-act="theme" data-val="dark">כהה</button>
+        </div>
+      </section>
+      <section class="set-section" id="who-actions" aria-labelledby="set-general">
+        <h3 class="set-label" id="set-general">כללי</h3>
+        <div class="set-list">
+          <button class="set-row" type="button" data-act="audit">
+            <span class="set-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></span>
+            <span class="set-text"><b>יומן פעולות</b><small>כל פעולה במערכת: מי, מתי, מאיפה ומה השתנה</small></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="set-row" type="button" data-act="history">
+            <span class="set-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+            <span class="set-text"><b>עדכונים אחרונים</b><small>הפיד המלא של הבית</small></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="set-row" type="button" data-act="who-rename">
+            <span class="set-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+            <span class="set-text"><b>שם בת הזוג</b><small id="set-partner-name"></small></span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>
+          </button>
+          <button class="set-row danger" type="button" data-act="sign-out" id="sign-out" hidden>
+            <span class="set-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></span>
+            <span class="set-text"><b>התנתקות</b><small id="set-email"></small></span>
+          </button>
+        </div>
+      </section>
+    </div>
+    <div id="who-step2" style="display:flex;flex-direction:column;gap:12px" hidden>
+      <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="name-h" tabindex="-1"></h2></div>
+      <label for="partner-name" class="sr" id="name-label"></label>
+      <input id="partner-name" class="field" type="text" maxlength="30" autocomplete="off" enterkeyhint="done">
+      <div class="line">
+        <button class="btn-dark" type="button" data-act="save-name" style="flex:1">שמירה</button>
+        <button class="btn-outline" type="button" data-act="close-sheet" style="flex:none;padding:0 18px">אחר כך</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit a task or a reminder -->
+<div class="sheet-bg" id="edit-sheet" hidden>
+  <form class="sheet" id="edit-form" role="dialog" aria-modal="true" aria-labelledby="edit-h" novalidate>
+    <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="edit-h" tabindex="-1">עריכה</h2></div>
+    <p class="notice" id="edit-note" hidden></p>
+    <label for="edit-title" class="sr">תוכן</label>
+    <input id="edit-title" class="field" type="text" maxlength="200" autocomplete="off" enterkeyhint="done" required>
+    <div class="opts"><span class="lbl" id="edit-who-lbl">באחריות</span><span class="opts" id="edit-who"></span></div>
+    <div class="opts"><span class="lbl">מתי</span><span class="opts"><span id="edit-due" style="display:contents"></span>
+      <label for="edit-date" class="sr">תאריך מסוים</label>
+      <input id="edit-date" class="field timef" type="date" data-date-for="edit" required></span></div>
+    <div class="opts">
+      <label for="edit-time" class="lbl">שעה</label>
+      <input id="edit-time" class="field timef" type="time">
+      <button class="x" type="button" data-act="clear-time" data-val="edit-time" aria-label="בלי שעה" hidden><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <span class="hint" data-hint="edit-time">לא חובה</span>
+    </div>
+    <div class="opts" role="group" aria-label="חזרה" id="edit-repeat-row"><span class="lbl">חזרה</span><span class="opts" id="edit-repeat"></span></div>
+    <div class="days" role="group" aria-label="באילו ימים" id="edit-days" hidden></div>
+    <div class="line" style="margin-top:4px">
+      <button class="btn-dark" type="submit" style="flex:1">שמירה</button>
+      <button class="btn-outline" type="button" data-act="close-sheet" style="flex:none;padding:0 18px">ביטול</button>
+    </div>
+  </form>
+</div>
+
+<!-- sign in (Supabase mode): email -> one-time code (or the link in the same email) -->
+<div class="sheet-bg" id="login-sheet" hidden>
+  <form class="sheet" id="login-form" role="dialog" aria-modal="true" aria-labelledby="login-h" novalidate>
+    <div class="sheet-brand">
+      <img class="logo" src="icons/icon.svg" alt="" style="width:44px;height:44px;border-radius:10px">
+      <h2 id="login-h" tabindex="-1">כניסה ל-Jeel</h2>
+    </div>
+    <div id="login-step1" style="display:flex;flex-direction:column;gap:12px">
+      <p>נשלח לכם קוד כניסה במייל.</p>
+      <label for="login-email" class="sr">אימייל</label>
+      <input id="login-email" class="field" type="email" autocomplete="email" inputmode="email" dir="ltr" placeholder="name@example.com" enterkeyhint="send">
+      <button class="btn-dark" type="submit" id="login-send">שליחת קוד</button>
+    </div>
+    <div id="login-step2" style="display:flex;flex-direction:column;gap:12px" hidden>
+      <p id="login-sent"></p>
+      <label for="login-code" class="sr">קוד מהמייל</label>
+      <input id="login-code" class="field" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="10" dir="ltr" placeholder="123456" enterkeyhint="go" style="letter-spacing:.2em;text-align:center">
+      <button class="btn-dark" type="submit" id="login-verify">כניסה</button>
+      <button class="link" type="button" data-act="login-back">כתובת אחרת</button>
+    </div>
+    <p class="notice" id="login-msg" role="alert" hidden></p>
+    <button class="btn-outline" type="button" data-act="sign-out" id="login-signout" hidden>התנתקות</button>
+  </form>
+</div>
+
+<!-- full activity history -->
+<div class="sheet-bg" id="history-sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="history-h">
+    <div class="card-head"><div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="history-h" tabindex="-1">כל העדכונים</h2></div>
+      <div class="line"><button class="link" type="button" data-act="audit">יומן מלא</button><button class="btn-outline" type="button" data-act="close-sheet">סגירה</button></div></div>
+    <div class="feed-list" id="history"></div>
+  </div>
+</div>
+
+<!-- edit a shopping item (name, quantity, category, note) -->
+<div class="sheet-bg" id="item-sheet" hidden>
+  <form class="sheet" id="item-form" role="dialog" aria-modal="true" aria-labelledby="item-h" novalidate>
+    <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="item-h" tabindex="-1">עריכת פריט</h2></div>
+    <p class="notice" id="item-msg" hidden></p>
+    <label class="set-label" for="ie-name">שם</label>
+    <input id="ie-name" class="field" type="text" maxlength="120" autocomplete="off" enterkeyhint="done">
+    <div class="line">
+      <div style="flex:none;width:96px;display:flex;flex-direction:column;gap:6px"><label class="set-label" for="ie-qty">כמות</label><input id="ie-qty" class="field qtyf" style="width:100%" type="text" maxlength="30" autocomplete="off"></div>
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px"><label class="set-label" for="ie-cat">קטגוריה</label><select id="ie-cat" class="field"><option>פירות וירקות</option><option>מוצרי חלב</option><option>מאפים</option><option>יבשים</option><option>ניקיון ובית</option><option>אחר</option></select></div>
+    </div>
+    <label class="set-label" for="ie-note">הערה</label>
+    <textarea id="ie-note" class="field note-field" maxlength="200" rows="2" placeholder="למשל: ללא לקטוז, המותג הכחול, רק אם במבצע"></textarea>
+    <div class="line" style="margin-top:4px">
+      <button class="btn-dark" type="submit" style="flex:1">שמירה</button>
+      <button class="btn-outline" type="button" data-act="close-sheet" style="flex:none;padding:0 18px">ביטול</button>
+    </div>
+  </form>
+</div>
+
+<!-- saved shopping lists -->
+<div class="sheet-bg" id="lists-sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="lists-h">
+    <div class="card-head">
+      <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="lists-h" tabindex="-1">רשימות שמורות</h2></div>
+      <button class="btn-outline" type="button" data-act="close-sheet">סגירה</button>
+    </div>
+    <section class="set-section">
+      <h3 class="set-label">מוצגת עכשיו</h3>
+      <div class="current-list">
+        <div class="info"><span class="name" id="lists-current-name"></span><span class="preview" id="lists-current-meta"></span></div>
+        <button class="btn-outline" type="button" data-act="list-new">רשימה חדשה</button>
+      </div>
+    </section>
+    <div class="card form" style="background:var(--surface-2)">
+      <label for="list-name" style="font-size:13px;font-weight:600" id="list-save-label">שמירת הרשימה</label>
+      <div class="line">
+        <input id="list-name" class="field" type="text" maxlength="60" placeholder="למשל: קנייה שבועית" autocomplete="off" enterkeyhint="done">
+        <button class="btn-dark" type="button" data-act="list-save">שמירה</button>
+      </div>
+      <span class="hint" id="list-save-hint"></span>
+    </div>
+    <section class="set-section">
+      <h3 class="set-label">רשימות שמורות</h3>
+      <p class="hint" style="margin:0"><b>פתיחה</b> מחליפה את מה שמוצג ברשימה השמורה · <b>הוספה</b> מוסיפה את הפריטים שלה למה שכבר מוצג</p>
+      <div id="lists"></div>
+    </section>
+  </div>
+</div>
+
+<!-- audit trail: every action, who, when, from where, and what changed -->
+<div class="sheet-bg" id="audit-sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="audit-h" style="max-height:calc(100dvh - var(--kb) - 12px)">
+    <div class="card-head">
+      <div class="sheet-brand"><img class="logo" src="icons/icon.svg" alt=""><h2 id="audit-h" tabindex="-1">יומן פעולות</h2></div>
+      <button class="btn-outline" type="button" data-act="close-sheet">סגירה</button>
+    </div>
+    <p>כל פעולה במערכת: מי ביצע, מתי, מאיפה ומה בדיוק השתנה. היומן לא ניתן לעריכה או למחיקה.</p>
+    <div class="opts" role="group" aria-label="סינון היומן" id="audit-filters"></div>
+    <div class="audit-list" id="audit-list" aria-live="polite"></div>
+    <button class="btn-outline" type="button" data-act="audit-more" id="audit-more" hidden>טעינת עוד</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden><span id="toast-text"></span><button type="button" id="toast-action" hidden></button></div>
+
+<!-- deployment settings: { supabaseUrl, supabaseAnonKey }; empty = local server mode (server.js) -->
+<script src="config.js"></script>
+<script>
+'use strict';
+const TZ = 'Asia/Jerusalem';
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const same = (a, b) => JSON.stringify(a ?? null) === JSON.stringify(b ?? null);
+// crypto.randomUUID needs a secure context; phones on plain http over Wi-Fi don't have one
+const uuid = () => crypto.randomUUID?.() ?? '10000000-1000-4000-8000-100000000000'.replace(/[018]/g, (c) => (c ^ (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))).toString(16));
+const finePointer = matchMedia('(pointer: fine)').matches;
+
+// ---------- per-device storage (best effort) ----------
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch { /* private mode / full */ } },
+  json(k, fallback) { try { return JSON.parse(localStorage.getItem(k)) ?? fallback; } catch { return fallback; } },
+  setJson(k, v) { this.set(k, JSON.stringify(v)); }
+};
+
+// ---------- dates (Asia/Jerusalem) ----------
+const ymd = (date) => new Intl.DateTimeFormat('en-CA', { timeZone: TZ }).format(date);
+const today = () => ymd(new Date());
+const nowTime = () => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: TZ }).format(new Date());
+const hourNow = () => Number(nowTime().slice(0, 2));
+const addDays = (d, n) => { const t = new Date(d + 'T00:00:00Z'); t.setUTCDate(t.getUTCDate() + n); return t.toISOString().slice(0, 10); };
+const dow = (d) => new Date(d + 'T00:00:00Z').getUTCDay();
+// "this week" = the coming Saturday; on Friday/Saturday that is today/tomorrow, so it becomes "next week"
+const weekEnd = (t) => { const d = 6 - dow(t); return addDays(t, d <= 1 ? d + 7 : d); };
+const weekLabel = () => (dow(today()) >= 5 ? 'שבוע הבא' : 'השבוע');
+const buckets = () => [{ key: 'today', label: 'היום' }, { key: 'tomorrow', label: 'מחר' }, { key: 'week', label: weekLabel() }];
+const bucketDate = (b) => { const t = today(); return b === 'tomorrow' ? addDays(t, 1) : b === 'week' ? weekEnd(t) : t; };
+const bucketOfDate = (d) => buckets().find((b) => bucketDate(b.key) === d)?.key ?? null;
+const shortDate = (d) => new Intl.DateTimeFormat('he-IL', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(d + 'T00:00:00Z'));
+const weekdayName = (d) => new Intl.DateTimeFormat('he-IL', { weekday: 'long', timeZone: 'UTC' }).format(new Date(d + 'T00:00:00Z'));
+function dayLabel(d) {
+  const t = today();
+  if (d === t) return 'היום';
+  if (d === addDays(t, 1)) return 'מחר';
+  if (d > t && d <= weekEnd(t)) return weekdayName(d);
+  return shortDate(d);
+}
+// tasks: label + whether it needs attention
+function dueInfo(d, time) {
+  const t = today();
+  const late = d < t || (d === t && time && time < nowTime());
+  if (late) return { label: 'באיחור · ' + (d < t ? shortDate(d) : time), hot: true };
+  return { label: dayLabel(d) + (time ? ' · ' + time : ''), hot: d === t };
+}
+// a snoozed reminder shows its snooze time until it is done
+const eff = (r) => r.snooze || { date: r.date, time: r.time };
+const isLate = (r) => { if (r.done_at) return false; const e = eff(r), t = today(); return e.date < t || (e.date === t && e.time < nowTime()); };
+const effKey = (r) => { const e = eff(r); return e.date + ' ' + e.time; };
+const dueKey = (x) => x.due_date + ' ' + (x.due_time || '99:99'); // untimed tasks last within a day
+// task sorting: each field has a natural direction (newest first for "created"); ties fall back to due date, then title
+const SORTS = {
+  due: { dir: 1, label: ['מוקדם קודם', 'מאוחר קודם'], cmp: (a, b) => dueKey(a).localeCompare(dueKey(b)) },
+  title: { dir: 1, label: ['א–ת', 'ת–א'], cmp: (a, b) => a.title.localeCompare(b.title, 'he', { numeric: true }) },
+  who: { dir: 1, label: ['א–ת', 'ת–א'], cmp: (a, b) => who(a.who).label.localeCompare(who(b.who).label, 'he') },
+  created: { dir: -1, label: ['ישן קודם', 'חדש קודם'], cmp: (a, b) => (a.created_at || '9').localeCompare(b.created_at || '9') }
+};
+const taskSorter = ({ key, dir }) => (a, b) =>
+  (SORTS[key] || SORTS.due).cmp(a, b) * dir || dueKey(a).localeCompare(dueKey(b)) || a.title.localeCompare(b.title, 'he');
+function rel(iso) {
+  const sec = (Date.now() - Date.parse(iso)) / 1000;
+  if (sec < 60) return 'עכשיו';
+  const m = Math.round(sec / 60);
+  if (m < 60) return m === 1 ? 'לפני דקה' : `לפני ${m} דק׳`;
+  const day = ymd(new Date(iso)), t = today();
+  const h = Math.round(m / 60);
+  if (day === t) return h === 1 ? 'לפני שעה' : h === 2 ? 'לפני שעתיים' : `לפני ${h} שעות`;
+  if (day === addDays(t, -1)) return 'אתמול';
+  return shortDate(day);
+}
+function greeting() {
+  const h = hourNow();
+  return h >= 5 && h < 12 ? 'בוקר טוב' : h >= 12 && h < 17 ? 'צהריים טובים' : h >= 17 && h < 22 ? 'ערב טוב' : 'לילה טוב';
+}
+function noMoreToday() {
+  const h = hourNow();
+  return 'אין עוד תזכורות להיום. ' + (h >= 5 && h < 12 ? 'יום טוב.' : h >= 12 && h < 17 ? 'המשך יום נעים.' : h >= 17 && h < 22 ? 'ערב רגוע.' : 'לילה טוב.');
+}
+
+// ---------- people ----------
+// person colours come from the theme tokens, so they adapt to light / dark
+const COLORS = {
+  naor: { solid: 'var(--naor)', bg: 'var(--naor-bg)', fg: 'var(--naor-fg)' },
+  partner: { solid: 'var(--partner)', bg: 'var(--partner-bg)', fg: 'var(--partner-fg)' },
+  both: { solid: 'var(--both)', bg: 'var(--both-bg)', fg: 'var(--both-fg)' }
+};
+const DEFAULT_PARTNER = 'בת הזוג';
+function who(k) {
+  if (k === 'both') return { ...COLORS.both, label: 'שנינו', initial: '' };
+  const m = S?.members?.[k] || { name: '?', gender: 'm' };
+  return { ...COLORS[k], label: m.name, initial: m.name.trim().charAt(0), gender: m.gender };
+}
+const isF = (k) => who(k).gender === 'f';
+const other = () => (me === 'partner' ? 'naor' : 'partner');
+const whoOpts = () => [{ key: 'naor', label: who('naor').label }, { key: 'partner', label: who('partner').label }, { key: 'both', label: 'שנינו' }];
+const VERBS = {
+  task_added: ['הוסיף משימה', 'הוסיפה משימה'],
+  task_done: ['סימן כבוצע', 'סימנה כבוצע'],
+  task_reopened: ['החזיר לפתוחות', 'החזירה לפתוחות'],
+  task_deleted: ['מחק משימה', 'מחקה משימה'],
+  task_edited: ['עדכן משימה', 'עדכנה משימה'],
+  rem_added: ['הוסיף תזכורת', 'הוסיפה תזכורת'],
+  rem_done: ['סימן תזכורת כבוצעה', 'סימנה תזכורת כבוצעה'],
+  rem_reopened: ['החזיר תזכורת', 'החזירה תזכורת'],
+  rem_deleted: ['מחק תזכורת', 'מחקה תזכורת'],
+  rem_edited: ['עדכן תזכורת', 'עדכנה תזכורת'],
+  rem_snoozed: ['דחה תזכורת', 'דחתה תזכורת'],
+  item_added: ['הוסיף לרשימה', 'הוסיפה לרשימה'],
+  item_checked: ['הכניס לעגלה', 'הכניסה לעגלה'],
+  item_deleted: ['הסיר מהרשימה', 'הסירה מהרשימה'],
+  list_saved: ['שמר רשימה', 'שמרה רשימה'],
+  list_loaded: ['הוסיף מרשימה שמורה', 'הוסיפה מרשימה שמורה'],
+  list_deleted: ['מחק רשימה שמורה', 'מחקה רשימה שמורה'],
+  list_opened: ['פתח את הרשימה', 'פתחה את הרשימה'],
+  list_new: ['התחיל רשימה חדשה', 'התחילה רשימה חדשה'],
+  item_edited: ['עדכן פריט', 'עדכנה פריט']
+};
+// consecutive cart checks by the same person within an hour become one line
+function groupFeed(rows) {
+  const out = [];
+  for (const a of rows) {
+    const last = out.at(-1);
+    if (last && a.verb === 'item_checked' && last.verb === 'item_checked' && last.actor === a.actor && Date.parse(last.first) - Date.parse(a.at) < 3600e3) {
+      last.subjects.push(a.subject); last.first = a.at;
+    } else out.push({ ...a, subjects: [a.subject], first: a.at });
+  }
+  return out;
+}
+function activityText(g) {
+  const f = isF(g.actor) ? 1 : 0;
+  if (g.verb === 'cart_cleared') return f ? `סיימה קנייה וניקתה ${g.subject} פריטים` : `סיים קנייה וניקה ${g.subject} פריטים`;
+  if (g.verb === 'item_checked' && g.subjects.length > 1) {
+    const list = g.subjects.slice(0, 3).join(', ') + (g.subjects.length > 3 ? '…' : '');
+    return `${f ? 'אספה' : 'אסף'} ${g.subjects.length} פריטים: ${list}`;
+  }
+  const verb = (VERBS[g.verb] || ['עדכן', 'עדכנה'])[f];
+  return g.subject ? `${verb}: ${g.subject}` : verb;
+}
+const feedRow = (g) => {
+  // no actor = the system (e.g. a reminder rolled on by itself)
+  const w = g.actor ? who(g.actor) : { solid: 'var(--muted)', initial: '•', label: 'Jeel' };
+  const via = g.via === 'whatsapp' ? ' · בוואטסאפ' : '';
+  return `<div class="feed"><span class="av" style="background:${w.solid}">${esc(w.initial)}</span>
+    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+      <span class="feed-text"><strong style="font-weight:600">${esc(w.label)}</strong> ${esc(activityText(g))}</span>
+      <span class="feed-time">${rel(g.at)}${via}</span></div></div>`;
+};
+
+// ---------- shopping category guess ----------
+const CAT_WORDS = [
+  ['ניקיון ובית', ['נייר', 'סבון', 'אקונומיקה', 'נוזל', 'ספוג', 'שקיות', 'אבקת כביסה', 'מרכך', 'מגבונ', 'טואלט', 'מטלי', 'שמפו', 'משחת שיניים', 'דאודורנט', 'סקוטש', 'כביסה', 'מנקה', 'אלומיניום', 'מברשת', 'נורה', 'סוללות']],
+  ['מוצרי חלב', ['חלב', 'גבינ', 'קוטג', 'יוגורט', 'שמנת', 'חמאה', 'לבנה', 'לבן', 'ביצ', 'מעדן', 'צפתית', 'בולגרית', 'מוצרלה', 'פרמזן', 'פודינג', 'מילקי']],
+  ['מאפים', ['לחם', 'פית', 'לחמני', 'חלה', 'חלות', 'באגט', 'טורטי', 'עוגה', 'קרואסון', 'בורקס', 'מאפ', 'פרנה']],
+  ['פירות וירקות', ['עגבני', 'מלפפונ', 'בננ', 'תפוח', 'תפוז', 'לימון', 'בצל', 'שום', 'גזר', 'תפו״א', 'תפוחי אדמה', 'פלפל', 'חסה', 'אבוקדו', 'ענב', 'אבטיח', 'מלון', 'תות', 'פטרוזיליה', 'כוסברה', 'שמיר', 'נענע', 'קישוא', 'חציל', 'ברוקולי', 'כרוב', 'פטריות', 'תירס', 'אגס', 'אפרסק', 'שזיף', 'מנגו', 'ירקות', 'פירות', 'בטטה', 'סלק', 'קלמנטינ']],
+  ['יבשים', ['אורז', 'פסטה', 'ספגטי', 'קמח', 'סוכר', 'מלח', 'שמן', 'קפה', 'תה', 'קורנפלקס', 'דגני', 'שימורים', 'טונה', 'חומוס', 'עדשים', 'פתיתים', 'קוסקוס', 'ממרח', 'טחינה', 'דבש', 'ריבה', 'שוקולד', 'עוגיות', 'ביסלי', 'במבה', 'חטיף', 'אגוזי', 'תבלין', 'רוטב', 'קטשופ', 'מיונז', 'שקדים', 'גרנולה']]
+];
+const normName = (s) => s.trim().replace(/\s+/g, ' ');
+function guessCat(name) {
+  const n = normName(name);
+  if (!n) return null;
+  if (S?.known?.[n]) return S.known[n];
+  for (const [cat, words] of CAT_WORDS) if (words.some((w) => n.includes(w))) return cat;
+  return 'אחר';
+}
+
+// ---------- state ----------
+let S = store.json('jeel.state', null);          // last data from the server (also shown while offline)
+let me = store.get('ourhome.me');                 // 'naor' | 'partner' on this device
+let online = false;
+let outbox = store.json('jeel.outbox', []);       // adds waiting for the server: [{ op, args }]
+const notified = new Set(store.json('jeel.notified', []));   // reminder occurrences already notified
+const dismissed = new Set(store.json('jeel.dismissed', []));  // in-app alerts closed with ×
+const TABS = ['home', 'tasks', 'reminders', 'shopping'];
+const ui = {
+  tab: TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'home',
+  filter: 'all', taskWho: 'both', remWho: 'both', remRepeat: 'none', remDays: [],
+  dates: { task: today(), rem: today(), edit: today() },   // YYYY-MM-DD in each date picker
+  catTouched: false,
+  sort: store.json('jeel.taskSort', { key: 'due', dir: 1 }),   // task list order, remembered per device
+  settling: new Map()                                      // checked items that stay in place for a moment
+};
+let editing = null; // { kind: 'task'|'rem', id, base, form: { who, repeat, days } }
+const REPEATS = [
+  { key: 'none', label: 'ללא' }, { key: 'daily', label: 'כל יום' }, { key: 'weekly', label: 'כל שבוע' },
+  { key: 'monthly', label: 'כל חודש' }, { key: 'days', label: 'ימים קבועים' }
+];
+const WEEKDAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת'];
+const WEEKDAY_SHORT = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳'];
+function repeatLabel(r) {
+  if (r.repeat !== 'days') return REPEATS.find((x) => x.key === r.repeat)?.label ?? '';
+  const ds = r.repeat_days || [];
+  if (ds.length === 7) return 'כל יום';
+  const names = ds.map((d) => WEEKDAYS[d]);
+  return 'כל ' + (names.length > 1 ? names.slice(0, -1).join(', ') + ' ו' + names.at(-1) : names[0]);
+}
+
+// ---------- markup helpers ----------
+const ICON_CHECK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const ICON_X = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+const ICON_CLOCK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const ICON_NOTE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v12H8l-4 4z"/></svg>';
+const ICON_EDIT = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>';
+const noteLine = (it) => (it.note ? `<span class="note">${ICON_NOTE}${esc(it.note)}</span>` : '');
+const ICON_REPEAT = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l3 3-3 3"/><path d="M4 11V9a4 4 0 0 1 4-4h12"/><path d="M7 22l-3-3 3-3"/><path d="M20 13v2a4 4 0 0 1-4 4H4"/></svg>';
+
+const chip = (k) => { const w = who(k); return `<span class="chip" style="background:${w.bg};color:${w.fg}">${esc(w.label)}</span>`; };
+const checkBtn = (act, id, on, label, round, disabled) =>
+  `<button class="check" type="button" ${disabled ? 'disabled' : `data-act="${act}" data-id="${id}"`} aria-pressed="${on}" aria-label="${esc(label)}"><span class="box${round ? ' round' : ''}${on ? ' on' : ''}">${on ? ICON_CHECK : ''}</span></button>`;
+const delBtn = (act, id, label) => `<button class="x" type="button" data-act="${act}" data-id="${id}" aria-label="${esc(label)}">${ICON_X}</button>`;
+function pills(opts, current, act, colored, extra = '') {
+  return opts.map((o) => {
+    const on = o.key === current;
+    const solid = colored ? COLORS[o.key].solid : 'var(--ink)';
+    const style = on ? `background:${solid};border-color:${solid};color:${colored ? '#fff' : 'var(--on-ink)'}` : '';
+    return `<button class="pill" type="button" data-act="${act}" data-val="${o.key}" ${extra} aria-pressed="${on}" style="${style}">${esc(o.label)}</button>`;
+  }).join('');
+}
+const dayPills = (selected, act) => WEEKDAY_SHORT.map((label, i) => {
+  const on = selected.includes(i);
+  return `<button class="pill day" type="button" data-act="${act}" data-val="${i}" aria-pressed="${on}" aria-label="${WEEKDAYS[i]}" style="${on ? 'background:var(--ink);border-color:var(--ink);color:var(--on-ink)' : ''}">${label}</button>`;
+}).join('');
+// היום / מחר / השבוע shortcuts plus a calendar input, both bound to ui.dates[kind]
+function renderDate(kind, pillsId) {
+  if (kind !== 'edit' && ui.dates[kind] < today()) ui.dates[kind] = today(); // page left open past midnight
+  const d = ui.dates[kind];
+  $(pillsId).innerHTML = pills(buckets(), bucketOfDate(d), 'pick-date', false, `data-for="${kind}"`);
+  const input = document.querySelector(`[data-date-for="${kind}"]`);
+  if (input.value !== d) input.value = d;
+  if (kind !== 'edit') input.min = today();
+}
+function syncTime(id) {
+  const has = !!$(id).value;
+  const clear = document.querySelector(`[data-act="clear-time"][data-val="${id}"]`);
+  const hint = document.querySelector(`[data-hint="${id}"]`);
+  const optional = !(id === 'edit-time' && editing?.kind === 'rem');
+  clear.hidden = !has || !optional;
+  hint.hidden = has || !optional;
+}
+
+function taskRow(t) {
+  const done = !!t.done_at, d = dueInfo(t.due_date, t.due_time);
+  if (t.pending) {
+    return `<div class="row pending">${checkBtn('', t.id, false, t.title, false, true)}
+      <div class="body"><span class="title">${esc(t.title)}</span><span class="meta">${chip(t.who)}<span class="due">ממתין לשליחה…</span></span></div>
+      ${delBtn('drop-pending', t.id, 'ביטול השליחה: ' + t.title)}</div>`;
+  }
+  return `<div class="row">
+    ${checkBtn('toggle-task', t.id, done, (done ? 'החזרה לפתוחות: ' : 'סימון כבוצע: ') + t.title)}
+    <button class="body edit" type="button" data-act="edit-task" data-id="${t.id}" aria-label="${esc('עריכה: ' + t.title)}"><span class="title${done ? ' done' : ''}">${esc(t.title)}</span>
+      <span class="meta">${chip(t.who)}${done ? '' : `<span class="due${d.hot ? ' hot' : ''}">${esc(d.label)}</span>`}</span></button>
+    ${delBtn('remove-task', t.id, 'מחיקה: ' + t.title)}</div>`;
+}
+function remRow(r) {
+  const done = !!r.done_at, late = isLate(r), e = eff(r);
+  const day = e.date > addDays(today(), 1) ? dayLabel(e.date) + ' · ' : '';
+  const meta = `<span class="time${late ? ' hot' : ''}">${ICON_CLOCK}${esc(day + e.time)}</span>${chip(r.who)}
+    ${r.repeat && r.repeat !== 'none' ? `<span class="rep">${ICON_REPEAT}${esc(repeatLabel(r))}</span>` : ''}
+    ${late ? '<span class="due hot">באיחור</span>' : ''}${r.snooze && !done ? '<span class="due">נדחתה</span>' : ''}`;
+  if (r.pending) {
+    return `<div class="row pending">${checkBtn('', r.id, false, r.title, true, true)}
+      <div class="body"><span class="title">${esc(r.title)}</span><span class="meta"><span class="due">ממתין לשליחה…</span></span></div>
+      ${delBtn('drop-pending', r.id, 'ביטול השליחה: ' + r.title)}</div>`;
+  }
+  return `<div class="row">
+    ${checkBtn('toggle-rem', r.id, done, (done ? 'החזרה: ' : 'סימון כבוצעה: ') + r.title, true)}
+    <button class="body edit" type="button" data-act="edit-rem" data-id="${r.id}" aria-label="${esc('עריכה: ' + r.title)}"><span class="title${done ? ' done' : ''}">${esc(r.title)}</span>
+      <span class="meta">${meta}</span></button>
+    ${delBtn('remove-rem', r.id, 'מחיקה: ' + r.title)}</div>`;
+}
+function itemRow(it) {
+  const w = who(it.by);
+  if (it.pending) {
+    return `<div class="row pending">${checkBtn('', it.id, false, it.name, false, true)}
+      <div class="body inline"><span class="title">${esc(it.name)}</span><span class="qty">${esc(it.qty)}</span><span class="due">ממתין לשליחה…</span>${noteLine(it)}</div>
+      ${delBtn('drop-pending', it.id, 'ביטול השליחה: ' + it.name)}</div>`;
+  }
+  const on = ui.settling.has(it.id); // just checked: stays here for a moment so the list doesn't jump under the thumb
+  return `<div class="row">
+    ${checkBtn('toggle-item', it.id, on, (on ? 'הוצאה מהעגלה: ' : 'הכנסה לעגלה: ') + it.name)}
+    <button class="body inline" type="button" data-act="toggle-item" data-id="${it.id}" aria-hidden="true" tabindex="-1"><span class="title${on ? ' done' : ''}">${esc(it.name)}</span><span class="qty">${esc(it.qty)}</span>${noteLine(it)}</button>
+    <span class="by" title="נוסף על ידי ${esc(w.label)}" style="background:${w.bg};color:${w.fg}">${esc(w.initial)}</span>
+    <button class="x" type="button" data-act="edit-item" data-id="${it.id}" aria-label="${esc('עריכה והערה: ' + it.name)}">${ICON_EDIT}</button>
+    ${delBtn('remove-item', it.id, 'הסרה מהרשימה: ' + it.name)}</div>`;
+}
+function cartRow(it) {
+  return `<div class="row">
+    ${checkBtn('toggle-item', it.id, true, 'הוצאה מהעגלה: ' + it.name)}
+    <button class="body inline" type="button" data-act="toggle-item" data-id="${it.id}" aria-hidden="true" tabindex="-1"><span class="title done">${esc(it.name)}</span><span class="qty" style="background:none">${esc(it.qty)}</span>${noteLine(it)}</button></div>`;
+}
+// adds still in the outbox, shaped like the records they will become
+function pendingOf(op, list) {
+  const have = new Set(list.map((x) => x.id));
+  return outbox.filter((o) => o.op === op && !have.has(o.args.id)).map((o) => ({ ...o.args, by: me, pending: true }));
+}
+const forMe = (r) => r.who === me || r.who === 'both';
+const dueNow = (r) => { if (r.done_at) return false; const e = eff(r), t = today(); return e.date < t || (e.date === t && e.time <= nowTime()); };
+const occKey = (r) => r.id + '|' + effKey(r);
+
+// ---------- render ----------
+function render() {
+  if (!S) return;
+  const t = today();
+  $('loading').hidden = true;
+  for (const tab of TABS) $('v-' + tab).hidden = ui.tab !== tab;
+  document.querySelectorAll('nav button').forEach((b) => b.setAttribute('aria-current', b.dataset.val === ui.tab ? 'page' : 'false'));
+
+  // header + connection
+  $('today-label').textContent = new Intl.DateTimeFormat('he-IL', { weekday: 'long', day: 'numeric', month: 'long', timeZone: TZ }).format(new Date());
+  const titles = { home: me ? `${greeting()}, ${who(me).label}` : greeting(), tasks: 'משימות', reminders: 'תזכורות', shopping: currentList()?.name ?? 'רשימת קניות' };
+  $('title').textContent = titles[ui.tab];
+  $('who-btn').innerHTML = ['naor', 'partner'].map((k) => `<span class="av${k === me ? ' me' : ''}" style="background:${COLORS[k].solid}">${esc(who(k).initial)}</span>`).join('');
+  $('who-btn').title = `${who('naor').label} ו${who('partner').label} · הגדרות`;
+  $('net').hidden = online;
+  $('net').textContent = 'אין חיבור לשרת · מה שתוסיפו יישלח כשהחיבור יחזור' + (outbox.length ? ` · ${outbox.length} ממתינים` : '');
+
+  const tasks = S.tasks.concat(pendingOf('addTask', S.tasks));
+  const reminders = S.reminders.concat(pendingOf('addRem', S.reminders));
+  const items = pendingOf('addItem', S.items).concat(S.items);
+  const openTasks = tasks.filter((x) => !x.done_at);
+  const openItems = items.filter((x) => !x.checked_at || ui.settling.has(x.id));
+  const cart = items.filter((x) => x.checked_at && !ui.settling.has(x.id));
+  const byEff = (a, b) => effKey(a).localeCompare(effKey(b));
+  const todayRems = reminders.filter((r) => !r.done_at && !r.pending && eff(r).date <= t).sort(byEff);
+  const lateCount = S.reminders.filter(isLate).length;
+
+  $('shop-badge').hidden = !openItems.length;
+  $('shop-badge').textContent = openItems.length;
+  $('rem-badge').hidden = !lateCount;
+  $('rem-badge').textContent = lateCount;
+
+  // reminders that are due now for me, on every tab except home (home has its own card)
+  const alerts = me ? S.reminders.filter((r) => forMe(r) && dueNow(r) && !dismissed.has(occKey(r))).sort(byEff) : [];
+  $('alerts').hidden = ui.tab === 'home' || !alerts.length;
+  $('alerts').innerHTML = alerts.slice(0, 3).map((r) => `<div class="alert">
+      <div class="alert-top"><div><span class="hero-title" style="font-size:16px">${esc(r.title)}</span>
+        <span class="hero-sub late">${esc(eff(r).date < t ? shortDate(eff(r).date) + ' · ' : '')}${esc(eff(r).time)}</span></div>
+        <button class="x" type="button" data-act="dismiss-alert" data-id="${r.id}" aria-label="${esc('הסתרה: ' + r.title)}">${ICON_X}</button></div>
+      <div class="hero-actions"><button class="btn-light" type="button" data-act="toggle-rem" data-id="${r.id}" aria-label="${esc('בוצע: ' + r.title)}">בוצע</button>
+        <button class="btn-ghost" type="button" data-act="snooze-rem" data-id="${r.id}">עוד 30 דק׳</button></div></div>`).join('');
+
+  if (ui.tab === 'home') {
+    $('st-tasks').textContent = openTasks.length;
+    $('st-rems').textContent = todayRems.length;
+    $('st-shop').textContent = openItems.length;
+    const next = todayRems[0];
+    const late = next && isLate(next);
+    $('hero-label').textContent = late ? 'תזכורת שהזמן שלה עבר' : 'התזכורת הבאה להיום';
+    $('hero-body').innerHTML = next
+      ? `<div class="hero-row"><div style="min-width:0"><span class="hero-title">${esc(next.title)}</span>
+           <span class="hero-sub${late ? ' late' : ''}">${late ? 'באיחור · ' : ''}${esc(eff(next).date < t ? shortDate(eff(next).date) + ' ' : '')}${esc(eff(next).time)} · ${esc(who(next.who).label)}</span></div>
+           <div class="hero-actions">${late ? `<button class="btn-ghost" type="button" data-act="snooze-rem" data-id="${next.id}">עוד 30 דק׳</button>` : ''}
+           <button class="btn-light" type="button" data-act="toggle-rem" data-id="${next.id}" aria-label="${esc('בוצע: ' + next.title)}">בוצע</button></div></div>`
+      : `<span style="font-size:15px">${noMoreToday()}</span>`;
+    const todays = openTasks.filter((x) => x.due_date <= t).sort((a, b) => dueKey(a).localeCompare(dueKey(b)));
+    $('home-tasks').innerHTML = todays.length ? todays.map(taskRow).join('') : '<p class="empty">הכול סגור להיום.</p>';
+    $('feed').innerHTML = groupFeed(S.activity).slice(0, 4).map(feedRow).join('') || '<p class="empty" style="border:0;padding:0">עוד אין עדכונים.</p>';
+  }
+
+  if (ui.tab === 'tasks') {
+    // "mine" includes shared tasks: it answers "what do I need to care about"
+    const FILTERS = {
+      all: () => true,
+      mine: (x) => x.who === me || x.who === 'both',
+      other: (x) => x.who === other(),
+      both: (x) => x.who === 'both'
+    };
+    const matches = FILTERS[ui.filter] || FILTERS.all;
+    const count = (k) => openTasks.filter(FILTERS[k]).length;
+    $('task-filters').innerHTML = pills([
+      { key: 'all', label: 'הכול · ' + count('all') },
+      { key: 'mine', label: 'שלי · ' + count('mine') },
+      { key: 'other', label: who(other()).label + ' · ' + count('other') },
+      { key: 'both', label: 'משותף · ' + count('both') }
+    ], ui.filter, 'filter', false);
+    $('task-who').innerHTML = pills(whoOpts(), ui.taskWho, 'task-who', true);
+    renderDate('task', 'task-due');
+    const sorter = taskSorter(ui.sort);
+    const open = openTasks.filter(matches).sort(sorter);
+    // finished tasks: most recently finished first, unless another field was chosen
+    const done = tasks.filter((x) => x.done_at && matches(x)).sort(ui.sort.key === 'due' ? (a, b) => b.done_at.localeCompare(a.done_at) : sorter);
+    $('task-sort').value = ui.sort.key;
+    const dirLabel = (SORTS[ui.sort.key] || SORTS.due).label[ui.sort.dir === 1 ? 0 : 1];
+    $('task-sort-dir').dataset.dir = ui.sort.dir;
+    $('task-sort-dir').setAttribute('aria-label', 'כיוון המיון: ' + dirLabel);
+    $('task-sort-dir').title = dirLabel;
+    $('open-h').textContent = `פתוחות · ${open.length}`;
+    $('open-tasks').innerHTML = open.length ? open.map(taskRow).join('') : '<p class="empty">אין משימות פתוחות כאן.</p>';
+    $('done-card').hidden = !done.length;
+    $('done-h').textContent = `הושלמו · ${done.length}`;
+    $('done-tasks').innerHTML = done.map(taskRow).join('');
+  }
+
+  if (ui.tab === 'reminders') {
+    $('notif-card').hidden = !('Notification' in window && isSecureContext && Notification.permission === 'default');
+    renderDate('rem', 'rem-when');
+    $('rem-repeat').innerHTML = pills(REPEATS, ui.remRepeat, 'rem-repeat', false);
+    $('rem-days').hidden = ui.remRepeat !== 'days';
+    $('rem-days').innerHTML = dayPills(ui.remDays, 'rem-day');
+    $('rem-who').innerHTML = pills(whoOpts(), ui.remWho, 'rem-who', true);
+    syncRemTimeHint();
+    // done one-off reminders from past days drop off the list
+    const visible = reminders.filter((r) => !(r.done_at && r.date < t))
+      .sort((a, b) => (!!a.done_at - !!b.done_at) || byEff(a, b));
+    const tomorrow = addDays(t, 1), we = weekEnd(t), wl = weekLabel();
+    const groupOf = (r) => { const d = eff(r).date; return d <= t ? 'היום' : d === tomorrow ? 'מחר' : d <= we ? wl : 'בהמשך'; };
+    const groups = ['היום', 'מחר', wl, 'בהמשך'].map((name) => {
+      const list = visible.filter((r) => groupOf(r) === name);
+      return { name, list, open: list.filter((r) => !r.done_at).length };
+    }).filter((g) => g.list.length);
+    $('rem-groups').innerHTML = groups.length
+      ? groups.map((g) => `<section class="card"><h2>${g.name} · ${g.open}</h2>${g.list.map(remRow).join('')}</section>`).join('')
+      : '<p class="empty-card">אין תזכורות. הוסיפו את הראשונה למעלה.</p>';
+  }
+
+  if (ui.tab === 'shopping') {
+    const total = openItems.length + cart.length;
+    $('shop-progress').hidden = !total;
+    $('shop-collected').textContent = `נאספו ${cart.length} מתוך ${total}`;
+    $('shop-left').textContent = `${openItems.length} נשארו`;
+    $('shop-bar').style.width = (total ? Math.round(cart.length / total * 100) : 0) + '%';
+    const cats = [...$('item-cat').options].map((o) => o.value);
+    const groups = cats.map((c) => ({ name: c, list: openItems.filter((x) => x.cat === c) })).filter((g) => g.list.length);
+    $('cat-groups').innerHTML = groups.length
+      ? groups.map((g) => `<section class="card"><h2>${esc(g.name)} · ${g.list.length}</h2>${g.list.map(itemRow).join('')}</section>`).join('')
+      : `<p class="empty-card">${total ? 'הכול בעגלה. אפשר ללכת הביתה.' : 'הרשימה ריקה.'}</p>`;
+    const cur = currentList();
+    $('list-bar-name').textContent = cur ? cur.name : 'רשימה ללא שם';
+    const state = !cur ? 'לא נשמרה' : listDirty(cur) ? 'שונתה מאז השמירה' : 'שמורה';
+    $('list-bar-meta').innerHTML = `${items.filter((x) => !x.pending).length} פריטים · <span class="${cur && !listDirty(cur) ? '' : 'dirty'}">${state}</span>` + ((S.lists || []).length ? ` · ${S.lists.length} שמורות` : '');
+    $('cart-card').hidden = !cart.length;
+    $('cart-h').textContent = `בעגלה · ${cart.length}`;
+    $('cart').innerHTML = cart.map(cartRow).join('');
+  }
+
+  if (!$('history-sheet').hidden) renderHistory();
+  if (!$('lists-sheet').hidden) renderLists();
+  if (editingItem && !S.items.some((x) => x.id === editingItem.id)) { closeSheet(); toast('הפריט נמחק בינתיים'); }
+  if (editing) refreshEdit();
+}
+function renderHistory() {
+  $('history').innerHTML = groupFeed(S.activity).slice(0, 60).map(feedRow).join('') || '<p class="empty" style="border:0">עוד אין עדכונים.</p>';
+}
+// ---------- edit a shopping item ----------
+let editingItem = null; // { id, base }
+const itemFields = (it) => ({ name: it.name, qty: it.qty, cat: it.cat, note: it.note || '' });
+function openItemEdit(id) {
+  const it = S.items.find((x) => x.id === id && !x.pending);
+  if (!it) return;
+  editingItem = { id, base: itemFields(it) };
+  $('ie-name').value = it.name; $('ie-qty').value = it.qty; $('ie-cat').value = it.cat; $('ie-note').value = it.note || '';
+  $('item-msg').hidden = true;
+  openSheet($('item-sheet'), finePointer ? $('ie-note') : null);
+}
+async function saveItemEdit(e) {
+  e.preventDefault();
+  const form = { name: $('ie-name').value.trim(), qty: $('ie-qty').value.trim() || '1', cat: $('ie-cat').value, note: $('ie-note').value.trim() };
+  if (!form.name) { toast('צריך שם לפריט'); return $('ie-name').focus(); }
+  const changes = {}, base = {};
+  for (const k of Object.keys(form)) {
+    if (form[k] === editingItem.base[k]) continue;
+    changes[k] = k === 'note' ? form[k] || null : form[k];
+    base[k] = k === 'note' ? editingItem.base[k] || null : editingItem.base[k];
+  }
+  if (!Object.keys(changes).length) return closeSheet();
+  const r = await api('updateItem', { id: editingItem.id, changes, base });
+  if (r.conflict) {
+    const by = r.conflict.updated_by ? who(r.conflict.updated_by) : null;
+    editingItem.base = itemFields(r.conflict); // your values stay in the form; saving again overwrites knowingly
+    $('item-msg').textContent = `${by ? by.label + (by.gender === 'f' ? ' שינתה' : ' שינה') : 'מישהו שינה'} את הפריט בינתיים ("${r.conflict.note || r.conflict.name}"). בדקו ושמרו שוב.`;
+    $('item-msg').hidden = false;
+    return;
+  }
+  if (r.ok) { closeSheet(); undoToast('הפריט עודכן', r); }
+}
+
+// ---------- saved shopping lists ----------
+// the saved list that's open on the shopping tab (shared by both phones), and whether it changed since saving
+const currentList = () => (S?.lists || []).find((l) => l.id === S.currentListId) || null;
+const listSig = (arr) => arr.map((x) => `${normName(x.name)}|${x.qty}|${x.note || ''}`).sort().join('\n');
+const listDirty = (l) => listSig(S.items.filter((x) => !x.pending)) !== listSig(l.items);
+function renderLists() {
+  const lists = S.lists || [];
+  const cur = currentList();
+  const n = new Set(S.items.map((i) => normName(i.name))).size;
+  $('lists-current-name').textContent = cur ? cur.name : 'רשימה ללא שם';
+  $('lists-current-meta').textContent = `${n} פריטים · ${!cur ? 'עוד לא נשמרה' : listDirty(cur) ? 'שונתה מאז השמירה' : 'שמורה'}`;
+  const name = normName($('list-name').value);
+  const same = lists.find((l) => normName(l.name) === name);
+  $('list-save-label').textContent = cur ? `שמירת הרשימה (${cur.name})` : 'שמירת הרשימה';
+  $('list-save-hint').textContent = !n ? 'הרשימה ריקה כרגע — הוסיפו פריטים כדי לשמור אותה.'
+    : same ? `תעדכן את "${same.name}" עם ${n} הפריטים שמוצגים עכשיו.` : `תישמר רשימה חדשה עם ${n} הפריטים שמוצגים עכשיו (כולל מה שבעגלה).`;
+  $('lists').innerHTML = lists.length ? lists.map((l) => `<div class="saved-list">
+      <div class="info"><span class="name">${esc(l.name)}${l.id === S.currentListId ? '<span class="is-current">מוצגת עכשיו</span>' : ''}</span>
+        <span class="preview">${l.items.length} פריטים · ${esc(l.items.slice(0, 5).map((x) => x.name).join(', '))}${l.items.length > 5 ? '…' : ''}</span></div>
+      ${delBtn('list-delete', l.id, 'מחיקת הרשימה: ' + l.name)}
+      <div class="actions">
+        <button class="btn-dark" type="button" data-act="list-switch" data-id="${l.id}" aria-label="${esc('פתיחת הרשימה: ' + l.name)}">פתיחה</button>
+        <button class="btn-outline" type="button" data-act="list-add" data-id="${l.id}" aria-label="${esc('הוספה לרשימה המוצגת: ' + l.name)}">הוספה</button>
+      </div></div>`).join('')
+    : '<p class="empty">עוד אין רשימות שמורות. שמרו את הרשימה של השבוע כדי לפתוח אותה בלחיצה בפעם הבאה.</p>';
+}
+function openLists() {
+  $('list-name').value = currentList()?.name ?? '';   // saving updates the list on screen unless renamed
+  renderLists();
+  openSheet($('lists-sheet'));
+}
+async function saveList() {
+  const name = $('list-name').value.trim();
+  if (!name) { toast('תנו לרשימה שם'); return $('list-name').focus(); }
+  const r = await api('saveList', { id: uuid(), name });
+  if (!r.ok) return;
+  renderLists();
+  toast(r.note?.kind === 'list_updated' ? `"${name}" עודכנה · ${r.note.count} פריטים` : `"${name}" נשמרה · ${r.note?.count ?? ''} פריטים`);
+}
+
+// ---------- audit trail view ----------
+const AUDIT_FIELD = {
+  title: 'כותרת', name: 'שם', display_name: 'שם', who: 'באחריות', assignee_id: 'באחריות', recipient_id: 'למי',
+  due_date: 'תאריך', date: 'תאריך', remind_date: 'תאריך', due_time: 'שעה', time: 'שעה', remind_time: 'שעה',
+  repeat: 'חזרה', repeat_days: 'ימים', repeat_anchor: 'יום בחודש', snooze: 'נדחתה עד', snooze_until: 'נדחתה עד',
+  done_at: 'בוצע', checked_at: 'בעגלה', last_completed_at: 'הושלמה', last_sent_at: 'נשלחה', qty: 'כמות', cat: 'קטגוריה', category: 'קטגוריה',
+  gender: 'לשון', whatsapp_phone: 'וואטסאפ', by: 'נוסף ע״י', added_by: 'נוסף ע״י', detail: 'פרטים', items: 'פריטים', note: 'הערה', current_list_id: 'רשימה מוצגת'
+};
+const AUDIT_HIDDEN = new Set(['id', 'household_id', 'created_at', 'created_by', 'updated_at', 'updated_by', 'raw', 'slot']);
+const AUDIT_KEY_FIELDS = ['who', 'assignee_id', 'recipient_id', 'due_date', 'date', 'remind_date', 'due_time', 'time', 'remind_time', 'repeat', 'repeat_days', 'qty', 'cat', 'category', 'note', 'display_name', 'whatsapp_phone', 'items'];
+const AUDIT_ENTITY = { tasks: 'משימה', reminders: 'תזכורת', shopping_items: 'פריט ברשימה', item_categories: 'קטגוריה שמורה', members: 'משתמש', households: 'בית', session: 'חשבון', saved_lists: 'רשימה שמורה' };
+const AUDIT_ACTION = { insert: 'יצירה', update: 'עדכון', delete: 'מחיקה' };
+const AUDIT_OPS = {
+  edit: 'עריכה', complete: 'סימון כבוצע', snooze: 'דחייה', undo: 'ביטול פעולה', clear_cart: 'סיום קנייה', send: 'שליחת תזכורת',
+  auto_roll: 'קידום אוטומטי', load_list: 'הוספת רשימה שמורה', open_list: 'פתיחת רשימה שמורה', new_list: 'רשימה חדשה', set_list: 'החלפת הרשימה המוצגת', whatsapp_sent: 'תזכורת נשלחה בוואטסאפ', whatsapp_failed: 'שליחה בוואטסאפ נכשלה',
+  signed_in: 'התחברות', signed_out: 'התנתקות', identity_selected: 'בחירת משתמש במכשיר'
+};
+const AUDIT_VIA = { app: 'אפליקציה', whatsapp: 'וואטסאפ', system: 'מערכת' };
+const AUDIT_FILTERS = [{ key: 'all', label: 'הכול' }, { key: 'tasks', label: 'משימות' }, { key: 'reminders', label: 'תזכורות' }, { key: 'shopping', label: 'קניות' }, { key: 'other', label: 'חשבון' }];
+const audit = { group: 'all', rows: [], done: false, loading: false };
+const stamp = (iso, seconds) => new Intl.DateTimeFormat('he-IL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', ...(seconds ? { second: '2-digit' } : {}), hourCycle: 'h23', timeZone: TZ }).format(new Date(iso));
+function auditVal(k, v) {
+  const person = ['who', 'by', 'assignee_id', 'recipient_id', 'added_by'].includes(k);
+  if (v === null || v === undefined || v === '') return person && k !== 'by' && k !== 'added_by' ? 'שנינו' : '—';
+  if (person) { if (v === 'both') return 'שנינו'; const key = backend.memberKey(v); return key ? who(key).label : 'משתמש שנמחק'; }
+  if (k === 'repeat') return REPEATS.find((r) => r.key === v)?.label ?? v;
+  if (k === 'repeat_days' && Array.isArray(v)) return v.map((d) => WEEKDAY_SHORT[d]).join(' ');
+  if (k === 'gender') return v === 'f' ? 'נקבה' : 'זכר';
+  if (k === 'snooze' && typeof v === 'object') return `${shortDate(v.date)} ${v.time}`;
+  if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}T/.test(v)) return stamp(v);
+  if (typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v)) return shortDate(v);
+  if (typeof v === 'string' && /^\d{2}:\d{2}(:\d{2})?$/.test(v)) return v.slice(0, 5);
+  if (k === 'whatsapp_phone') return String(v).slice(0, 6) + '…';
+  if (k === 'current_list_id') return (S.lists || []).find((l) => l.id === v)?.name ?? 'רשימה שנמחקה';
+  if (k === 'items' && Array.isArray(v)) return `${v.length} פריטים: ` + v.slice(0, 4).map((x) => x.name).join(', ') + (v.length > 4 ? '…' : '');
+  return typeof v === 'object' ? JSON.stringify(v) : String(v);
+}
+function auditRow(e) {
+  const w = e.actor ? who(e.actor) : { solid: 'var(--muted)', initial: '•', label: e.via === 'system' ? 'מערכת' : 'לא ידוע' };
+  const head = e.action === 'event'
+    ? `<span>${esc(AUDIT_OPS[e.op] || e.op || '')}</span>`
+    : `<span class="act-${e.action}">${AUDIT_ACTION[e.action] || e.action}</span> · ${esc(AUDIT_ENTITY[e.entity] || e.entity)}`;
+  const label = e.label ? ` · "${esc(e.label)}"` : '';
+  const op = e.action !== 'event' && e.op ? `<span class="tag">${esc(AUDIT_OPS[e.op] || e.op)}</span>` : '';
+  let lines = [];
+  const ch = e.changes || {};
+  if (e.action === 'update') {
+    lines = Object.entries(ch).filter(([k]) => !AUDIT_HIDDEN.has(k)).map(([k, [o, n]]) =>
+      `<li><span class="f">${esc(AUDIT_FIELD[k] || k)}</span> <s>${esc(auditVal(k, o))}</s> ← <b>${esc(auditVal(k, n))}</b></li>`);
+  } else if (e.action === 'event') {
+    if (ch.detail) lines = [`<li>${esc(ch.detail)}</li>`];
+  } else {
+    lines = AUDIT_KEY_FIELDS.filter((k) => k in ch && ch[k] !== null && ch[k] !== '').map((k) =>
+      `<li><span class="f">${esc(AUDIT_FIELD[k] || k)}</span> <b>${esc(auditVal(k, ch[k]))}</b></li>`);
+  }
+  return `<div class="audit-row">
+    <div class="audit-top"><span class="audit-time">${stamp(e.at, true).split(' ').pop()}</span>
+      <span class="av" style="background:${w.solid}">${esc(w.initial)}</span><strong style="font-weight:600">${esc(w.label)}</strong>
+      <span class="tag via-${e.via}">${AUDIT_VIA[e.via] || e.via}</span>${op}</div>
+    <div class="audit-what">${head}${label}</div>
+    ${lines.length ? `<ul class="audit-diff">${lines.join('')}</ul>` : ''}</div>`;
+}
+function renderAudit() {
+  $('audit-filters').innerHTML = pills(AUDIT_FILTERS, audit.group, 'audit-filter', false);
+  let day = '';
+  $('audit-list').innerHTML = audit.rows.map((e) => {
+    const d = ymd(new Date(e.at));
+    const name = d === today() ? 'היום' : d === addDays(today(), -1) ? 'אתמול' : shortDate(d);
+    const sep = d !== day ? `<div class="audit-day">${name}</div>` : '';
+    day = d;
+    return sep + auditRow(e);
+  }).join('') || `<p class="empty" style="border:0">${audit.loading ? 'טוען…' : 'אין רישומים עדיין.'}</p>`;
+  $('audit-more').hidden = audit.done || !audit.rows.length;
+}
+async function loadAudit(more) {
+  if (audit.loading) return;
+  audit.loading = true;
+  if (!more) { audit.rows = []; audit.done = false; renderAudit(); }
+  try {
+    const page = await backend.audit({ before: more ? audit.rows.at(-1)?.id : undefined, group: audit.group, limit: 100 });
+    audit.rows = audit.rows.concat(page);
+    audit.done = page.length < 100;
+  } catch {
+    toast('אין חיבור — אי אפשר לטעון את היומן כרגע');
+  } finally {
+    audit.loading = false;
+    renderAudit();
+  }
+}
+function openAudit() {
+  audit.group = 'all';
+  openSheet($('audit-sheet'));
+  loadAudit(false);
+}
+
+function syncRemTimeHint() {
+  $('rem-time-hint').hidden = !(ui.dates.rem === today() && $('rem-time').value && $('rem-time').value < nowTime());
+}
+
+// ---------- theme: follows the phone unless chosen in the account sheet ----------
+const themePref = () => store.get('jeel.theme') || 'system';
+function applyTheme(pref = themePref()) {
+  if (pref === 'light' || pref === 'dark') document.documentElement.dataset.theme = pref;
+  else delete document.documentElement.dataset.theme;
+  // the browser / status bar colour follows the page background
+  $('theme-color').setAttribute('content', getComputedStyle(document.documentElement).getPropertyValue('--bg').trim());
+  document.querySelectorAll('#theme-seg button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.val === pref));
+}
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => applyTheme());
+applyTheme();
+
+// ---------- sheets: focus kept inside, Esc / backdrop close, lifted above the soft keyboard ----------
+let sheet = null, sheetReturn = null;
+function openSheet(el, focusEl) {
+  if (sheet && sheet !== el) sheet.hidden = true;
+  sheetReturn = sheet ? sheetReturn : document.activeElement;
+  sheet = el;
+  el.hidden = false;
+  (focusEl || el.querySelector('h2'))?.focus({ preventScroll: true });
+}
+function closeSheet() {
+  if (!sheet) return;
+  if ((sheet === $('who-sheet') && !me) || sheet === $('login-sheet')) return; // can't be skipped
+  sheet.hidden = true;
+  if (sheet === $('edit-sheet')) editing = null;
+  if (sheet === $('item-sheet')) editingItem = null;
+  sheet = null;
+  sheetReturn?.focus?.({ preventScroll: true });
+}
+document.querySelectorAll('.sheet-bg').forEach((bg) => bg.addEventListener('click', (e) => { if (e.target === bg) closeSheet(); }));
+document.addEventListener('keydown', (e) => {
+  if (!sheet) return;
+  if (e.key === 'Escape') { e.preventDefault(); return closeSheet(); }
+  if (e.key !== 'Tab') return;
+  const f = [...sheet.querySelectorAll('button, input, select, [tabindex="-1"]')].filter((x) => !x.disabled && x.offsetParent !== null && x.tabIndex >= 0);
+  if (!f.length) return;
+  const first = f[0], last = f.at(-1);
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+if (window.visualViewport) {
+  const kb = () => document.documentElement.style.setProperty('--kb', Math.max(0, innerHeight - visualViewport.height - visualViewport.offsetTop) + 'px');
+  visualViewport.addEventListener('resize', kb);
+  visualViewport.addEventListener('scroll', kb);
+}
+
+// ---------- who-am-I ----------
+function openWho(step = 1) {
+  // first run on this device: just "who are you"; afterwards this is the settings menu
+  $('who-h').textContent = me ? 'הגדרות' : 'מי משתמש במכשיר הזה?';
+  $('who-sub').textContent = me ? '' : 'כל פעולה תירשם בשם שתבחרו.';
+  $('who-sub').hidden = !!me;
+  $('who-close').hidden = !me;
+  $('set-partner-name').textContent = S.members.partner.name;
+  if (CLOUD) {
+    // signed in: identity comes from the account
+    const w = who(me);
+    $('set-email').textContent = backend.email || '';
+    $('who-picks').innerHTML = `<div class="pick" aria-pressed="true"><span class="av" style="background:${w.solid}">${esc(w.initial)}</span><span>${esc(w.label)}</span></div>`;
+    $('sign-out').hidden = false;
+  } else {
+    $('who-picks').innerHTML = ['naor', 'partner'].map((k) => {
+      const w = who(k);
+      return `<button class="pick" type="button" data-act="pick-me" data-val="${k}" aria-pressed="${k === me}">
+        <span class="av" style="background:${w.solid}">${esc(w.initial)}</span><span>${esc(w.label)}</span></button>`;
+    }).join('');
+  }
+  $('who-actions').hidden = !me;
+  $('who-step1').hidden = step !== 1;
+  $('who-step2').hidden = step !== 2;
+  if (step === 2) {
+    const self = me === 'partner';
+    $('name-h').textContent = self ? 'מה השם שלך?' : 'איך קוראים לבת הזוג?';
+    $('name-label').textContent = $('name-h').textContent;
+    const name = S.members.partner.name;
+    $('partner-name').value = name === DEFAULT_PARTNER ? '' : name;
+    $('partner-name').placeholder = self ? 'השם שלך' : 'השם שלה';
+  }
+  openSheet($('who-sheet'), step === 2 && finePointer ? $('partner-name') : null);
+}
+async function saveName() {
+  const name = $('partner-name').value.trim();
+  if (!name) { toast('כתבו שם'); return $('partner-name').focus(); }
+  const r = await api('setName', { who: 'partner', name });
+  if (r.ok) { closeSheet(); toast('נשמר'); }
+}
+// the avatars open settings too (switching user is an explicit choice inside)
+$('who-btn').addEventListener('click', () => { if (S) openWho(1); });
+
+// ---------- edit sheet (tasks and reminders) ----------
+const recOf = (kind, id) => (kind === 'task' ? S.tasks : S.reminders).find((x) => x.id === id);
+function fieldsOf(kind, rec) {
+  return kind === 'task'
+    ? { title: rec.title, who: rec.who, date: rec.due_date, time: rec.due_time || '' }
+    : { title: rec.title, who: rec.who, date: rec.date, time: rec.time, repeat: rec.repeat || 'none', days: rec.repeat_days || [] };
+}
+const readForm = () => {
+  const f = { title: $('edit-title').value.trim(), who: editing.form.who, date: ui.dates.edit, time: $('edit-time').value };
+  if (editing.kind === 'rem') Object.assign(f, { repeat: editing.form.repeat, days: editing.form.repeat === 'days' ? editing.form.days : [] });
+  return f;
+};
+function writeForm(f) {
+  $('edit-title').value = f.title;
+  $('edit-time').value = f.time;
+  ui.dates.edit = f.date;
+  editing.form = { who: f.who, repeat: f.repeat, days: [...(f.days || [])] };
+  syncTime('edit-time');
+  renderEdit();
+}
+function openEdit(kind, id) {
+  const rec = recOf(kind, id);
+  if (!rec) return;
+  editing = { kind, id, base: fieldsOf(kind, rec), form: {} };
+  $('edit-h').textContent = kind === 'task' ? 'עריכת משימה' : 'עריכת תזכורת';
+  $('edit-who-lbl').textContent = kind === 'task' ? 'באחריות' : 'למי';
+  $('edit-repeat-row').hidden = kind !== 'rem';
+  $('edit-note').hidden = true;
+  writeForm(editing.base);
+  openSheet($('edit-sheet'), finePointer ? $('edit-title') : null);
+}
+function renderEdit() {
+  $('edit-who').innerHTML = pills(whoOpts(), editing.form.who, 'edit-who', true);
+  renderDate('edit', 'edit-due');
+  if (editing.kind === 'rem') {
+    $('edit-repeat').innerHTML = pills(REPEATS, editing.form.repeat, 'edit-repeat', false);
+    $('edit-days').hidden = editing.form.repeat !== 'days';
+    $('edit-days').innerHTML = dayPills(editing.form.days, 'edit-day');
+  } else $('edit-days').hidden = true;
+}
+// the other phone changed this record while the sheet is open: take their values for fields
+// you haven't touched, keep yours where you have (saving then asks the server to check)
+function refreshEdit() {
+  const rec = recOf(editing.kind, editing.id);
+  if (!rec) { closeSheet(); return toast(editing ? 'נמחק בינתיים' : 'נמחק בינתיים'); }
+  const fresh = fieldsOf(editing.kind, rec);
+  if (same(fresh, editing.base)) return;
+  const form = readForm();
+  for (const k of Object.keys(fresh)) {
+    if (!same(fresh[k], editing.base[k]) && same(form[k], editing.base[k])) { form[k] = fresh[k]; editing.base[k] = fresh[k]; }
+  }
+  writeForm(form);
+  const by = rec.updated_by ? who(rec.updated_by) : null;
+  $('edit-note').textContent = by ? `${by.label} ${by.gender === 'f' ? 'עדכנה' : 'עדכן'} את זה עכשיו` : 'עודכן עכשיו';
+  $('edit-note').hidden = false;
+}
+const SERVER_FIELD = {
+  task: { title: 'title', who: 'who', date: 'due_date', time: 'due_time' },
+  rem: { title: 'title', who: 'who', date: 'date', time: 'time', repeat: 'repeat', days: 'repeat_days' }
+};
+const toServer = (kind, k, v) => (kind === 'task' && k === 'time' ? (v || null) : v);
+async function saveEdit(e) {
+  e.preventDefault();
+  const form = readForm();
+  if (!form.title) { toast('צריך לכתוב תוכן'); return $('edit-title').focus(); }
+  if (editing.kind === 'rem' && !form.time) { toast('לתזכורת צריך שעה'); return $('edit-time').focus(); }
+  if (editing.kind === 'rem' && form.repeat === 'days' && !form.days.length) return toast('בחרו באילו ימים');
+  const changes = {}, base = {};
+  for (const [k, sk] of Object.entries(SERVER_FIELD[editing.kind])) {
+    if (same(form[k], editing.base[k])) continue;
+    changes[sk] = toServer(editing.kind, k, form[k]);
+    base[sk] = toServer(editing.kind, k, editing.base[k]);
+  }
+  if (!Object.keys(changes).length) return closeSheet();
+  const r = await api(editing.kind === 'task' ? 'updateTask' : 'updateRem', { id: editing.id, changes, base });
+  if (r.conflict) {
+    const by = r.conflict.updated_by ? who(r.conflict.updated_by) : null;
+    editing.base = fieldsOf(editing.kind, r.conflict); // your values stay in the form; saving again overwrites knowingly
+    $('edit-note').textContent = `${by ? by.label + (by.gender === 'f' ? ' שינתה' : ' שינה') : 'מישהו שינה'} את אותו פרט בינתיים. בדקו ושמרו שוב.`;
+    $('edit-note').hidden = false;
+    return;
+  }
+  if (r.ok) { closeSheet(); undoToast('נשמר', r); }
+}
+
+// ---------- toast with optional undo ----------
+let toastTimer;
+function toast(msg, action) {
+  $('toast-text').textContent = msg;
+  $('toast-action').hidden = !action;
+  if (action) { $('toast-action').textContent = action.label; $('toast-action').onclick = () => { $('toast').hidden = true; action.run(); }; }
+  $('toast').classList.toggle('top', !!sheet); // don't cover an open sheet's buttons
+  $('toast').hidden = false;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { $('toast').hidden = true; }, action ? 6000 : 3000);
+}
+function undoToast(msg, r) {
+  if (!r.ok) return;
+  if (!r.undo) return toast(msg);
+  toast(msg, { label: 'ביטול', run: async () => { const u = await api('undo', { token: r.undo }); if (u.ok) toast('בוטל'); } });
+}
+
+// ---------- backends ----------
+// The UI talks to one interface with two implementations: the local Node server (server.js) for
+// development, and Supabase in production (web/config.js sets supabaseUrl). call(op, args) resolves to
+// { state, undo?, note? } | { conflict } | { error }, and throws only when the network is unreachable.
+const CFG = window.JEEL_CONFIG || {};
+const CAME_FROM_EMAIL_LINK = /access_token=/.test(location.hash);
+const CLOUD = !!CFG.supabaseUrl;
+const SUPABASE_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.49.4/dist/umd/supabase.js';
+const QUEUEABLE = new Set(['addTask', 'addRem', 'addItem']);
+const saveOutbox = () => store.setJson('jeel.outbox', outbox);
+function setState(s) {
+  S = s;
+  store.setJson('jeel.state', s);
+  render();
+  checkDue();
+}
+
+const localBackend = {
+  async call(op, args) {
+    const res = await fetch('/api/op', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ op, args, actor: me }) });
+    const data = await res.json().catch(() => ({}));
+    if (res.status === 409) return { conflict: data.current };
+    if (!res.ok) return { error: data.error || 'שגיאה' };
+    return { state: data.state, undo: data.undo, note: data.note };
+  },
+  async audit({ before, group, limit = 100 } = {}) {
+    const q = new URLSearchParams({ limit });
+    if (before) q.set('before', before);
+    if (group && group !== 'all') q.set('group', group);
+    const res = await fetch('/api/audit?' + q);
+    if (!res.ok) throw new Error('audit unavailable');
+    return res.json();
+  },
+  memberKey: (k) => (k === 'naor' || k === 'partner' ? k : null),
+  start() {
+    const es = new EventSource('/api/events');
+    es.onopen = () => { online = true; render(); flushOutbox(); };
+    es.onmessage = (e) => {
+      online = true;
+      setState(JSON.parse(e.data));
+      if (!me && !sheet) openWho(1);
+    };
+    es.onerror = () => { online = false; render(); };
+  }
+};
+
+class Offline extends Error {}
+const offlineBackend = { async call() { throw new Offline('offline'); }, async audit() { throw new Offline('offline'); }, memberKey: () => null, start() {} };
+let backend = offlineBackend;
+
+function cloudBackend() {
+  const sb = window.supabase.createClient(CFG.supabaseUrl, CFG.supabaseAnonKey,
+    CFG.testAccessToken ? { accessToken: async () => CFG.testAccessToken } : { auth: { persistSession: true, detectSessionInUrl: true, flowType: 'implicit' } });
+  const SLOT = { 1: 'naor', 2: 'partner' };     // slot 1 = blue avatar, slot 2 = orange avatar
+  let keyOf = new Map(), ids = { naor: null, partner: null }, myId = null, myEmail = '';
+  const undos = new Map();
+  const NET = /failed to fetch|networkerror|load failed|network request failed/i;
+  const userError = (message) => Object.assign(new Error(message), { user: true });
+  // supabase-js reports problems as { error } instead of throwing
+  const check = ({ data, error }) => {
+    if (!error) return data;
+    if (!navigator.onLine || NET.test(error.message || '')) throw new Offline(error.message);
+    throw Object.assign(new Error(error.message), { db: error });
+  };
+  const hebrew = (e) => {
+    const code = e?.db?.code || e?.code || '';
+    if (code === '23514' || code === '22P02' || code === '22007') return 'ערך לא תקין';
+    if (code === 'P0002' || code === 'PGRST116') return 'לא נמצא (אולי נמחק בינתיים)';
+    if (code === '42501') return 'אין הרשאה';
+    if (/jwt|token/i.test(e?.message || '')) return 'צריך להתחבר מחדש';
+    return 'שגיאה: ' + (e?.message || '');
+  };
+
+  // database rows -> the shapes the UI uses (the raw row is kept for undo and conflict checks)
+  const time5 = (t) => (t ? t.slice(0, 5) : null);
+  const time8 = (t) => (t ? (t.length === 5 ? t + ':00' : t) : null);
+  const whoKey = (id) => (id ? keyOf.get(id) ?? 'both' : 'both');
+  const idOf = (k) => (k === 'both' ? null : ids[k]);
+  const ilTime = (iso) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hourCycle: 'h23', timeZone: TZ }).format(new Date(iso));
+  const mapTask = (t) => ({ id: t.id, title: t.title, who: whoKey(t.assignee_id), due_date: t.due_date, due_time: time5(t.due_time), done_at: t.done_at, created_at: t.created_at,
+    created_by: keyOf.get(t.created_by) ?? null, updated_by: keyOf.get(t.updated_by) ?? null, raw: t });
+  const mapRem = (r) => ({ id: r.id, title: r.title, who: whoKey(r.recipient_id), date: r.remind_date, time: time5(r.remind_time),
+    repeat: r.repeat, repeat_days: r.repeat_days, repeat_anchor: r.repeat_anchor,
+    snooze: r.snooze_until ? { date: ymd(new Date(r.snooze_until)), time: ilTime(r.snooze_until) } : null,
+    done_at: r.done_at, updated_by: keyOf.get(r.updated_by) ?? null, raw: r });
+  const mapItem = (i) => ({ id: i.id, name: i.name, qty: i.qty, cat: i.category, note: i.note || null, by: keyOf.get(i.added_by) ?? null, checked_at: i.checked_at,
+    updated_by: keyOf.get(i.updated_by) ?? null, raw: i });
+  const mapAct = (a) => ({ id: a.id, actor: keyOf.get(a.actor_id) ?? null, verb: a.verb, subject: a.subject, at: a.created_at, via: a.via });
+
+  async function load() {
+    const [m, t, r, i, a, c, l, h] = (await Promise.all([
+      sb.from('members').select('id, slot, display_name, gender'),
+      sb.from('tasks').select('*').order('created_at', { ascending: false }),
+      sb.from('reminders').select('*').order('created_at'),
+      sb.from('shopping_items').select('*').order('created_at', { ascending: false }),
+      sb.from('activity').select('*').order('created_at', { ascending: false }).order('id', { ascending: false }).limit(300),
+      sb.from('item_categories').select('name, category'),
+      sb.from('saved_lists').select('*').order('name'),
+      sb.from('households').select('current_list_id').maybeSingle()
+    ])).map(check);
+    keyOf = new Map(m.map((x) => [x.id, SLOT[x.slot]]));
+    ids = { naor: m.find((x) => x.slot === 1)?.id ?? null, partner: m.find((x) => x.slot === 2)?.id ?? null };
+    const members = { naor: { name: '—', gender: 'm' }, partner: { name: DEFAULT_PARTNER, gender: 'f' } };
+    for (const x of m) members[SLOT[x.slot]] = { name: x.display_name, gender: x.gender };
+    me = keyOf.get(myId) ?? null;
+    return { members, tasks: t.map(mapTask), reminders: r.map(mapRem), items: i.map(mapItem), activity: a.map(mapAct),
+      known: Object.fromEntries(c.map((x) => [x.name, x.category])),
+      lists: l.map((x) => ({ id: x.id, name: x.name, items: x.items, updated_at: x.updated_at, raw: x })),
+      currentListId: h?.current_list_id ?? null };
+  }
+
+  const rawOf = (list, id) => {
+    const rec = S[list].find((x) => x.id === id);
+    if (!rec?.raw) throw userError('לא נמצא (אולי נמחק בינתיים)');
+    return rec.raw;
+  };
+  // undo = put the rows back as they were and drop the activity line(s) the action wrote
+  const undoable = (table, rows, verbs, count = 1) => {
+    const token = uuid();
+    undos.set(token, async () => check(await sb.rpc('undo_restore', { p_table: table, p_rows: rows, p_verbs: verbs, p_log_count: count })));
+    return token;
+  };
+  const firstMatching = (d, days) => { while (!days.includes(dow(d))) d = addDays(d, 1); return d; };
+  const conv = (k, v) => (k === 'note' ? (v || null) : k === 'who' ? idOf(v) : k === 'due_time' || k === 'time' ? time8(v || null) : k === 'repeat_days' ? (v?.length ? v : null) : v);
+
+  // conflict-checked partial update: only changed fields, each with the value the editor started from
+  async function edit(table, list, a, fields, map, verb, adjust) {
+    const raw = rawOf(list, a.id);
+    const changes = {}, base = {};
+    for (const [k, v] of Object.entries(a.changes || {})) {
+      if (!fields[k]) continue;
+      changes[fields[k]] = conv(k, v);
+      base[fields[k]] = conv(k, a.base?.[k]);
+    }
+    adjust?.(changes, base, raw);
+    const r = check(await sb.rpc('update_checked', { p_table: table, p_id: a.id, p_changes: changes, p_base: base }));
+    if (r.conflict) return { conflict: map(r.conflict) };
+    return { undo: undoable(table, [raw], [verb]) };
+  }
+
+  const ops = {
+    async addTask(a) {
+      check(await sb.from('tasks').upsert({ id: a.id, title: a.title.trim(), assignee_id: idOf(a.who), due_date: a.due_date || bucketDate(a.due), due_time: time8(a.due_time) },
+        { onConflict: 'id', ignoreDuplicates: true }));
+    },
+    async toggleTask(a) {
+      const raw = rawOf('tasks', a.id);
+      check(await sb.from('tasks').update({ done_at: raw.done_at ? null : new Date().toISOString() }).eq('id', a.id));
+      return { undo: undoable('tasks', [raw], [raw.done_at ? 'task_reopened' : 'task_done']) };
+    },
+    updateTask: (a) => edit('tasks', 'tasks', a, { title: 'title', who: 'assignee_id', due_date: 'due_date', due_time: 'due_time' }, mapTask, 'task_edited'),
+    async removeTask(a) {
+      const raw = rawOf('tasks', a.id);
+      check(await sb.from('tasks').delete().eq('id', a.id));
+      return { undo: undoable('tasks', [raw], ['task_deleted']) };
+    },
+
+    async addRem(a) {
+      const repeat = a.repeat || 'none';
+      const days = repeat === 'days' ? [...new Set(a.repeat_days || [])].sort() : null;
+      if (days && !days.length) throw userError('בחרו לפחות יום אחד');
+      let date = a.date || bucketDate(a.when);
+      if (days) date = firstMatching(date, days);
+      check(await sb.from('reminders').upsert({
+        id: a.id, title: a.title.trim(), recipient_id: idOf(a.who), remind_date: date, remind_time: time8(a.time || '09:00'),
+        repeat, repeat_days: days, repeat_anchor: repeat === 'monthly' ? Number(date.slice(8)) : null
+      }, { onConflict: 'id', ignoreDuplicates: true }));
+    },
+    async toggleRem(a) {
+      const raw = rawOf('reminders', a.id);
+      if (raw.done_at) {
+        check(await sb.from('reminders').update({ done_at: null }).eq('id', a.id));
+        return { undo: undoable('reminders', [raw], ['rem_reopened']) };
+      }
+      check(await sb.rpc('complete_reminder', { p_id: a.id }));
+      return { undo: undoable('reminders', [raw], ['rem_done']) };
+    },
+    async snoozeRem(a) {
+      const raw = rawOf('reminders', a.id);
+      check(await sb.rpc('snooze_reminder', { p_id: a.id, p_minutes: a.minutes || 30 }));
+      return { undo: undoable('reminders', [raw], ['rem_snoozed']) };
+    },
+    updateRem: (a) => edit('reminders', 'reminders', a,
+      { title: 'title', who: 'recipient_id', date: 'remind_date', time: 'remind_time', repeat: 'repeat', repeat_days: 'repeat_days' }, mapRem, 'rem_edited',
+      (ch, base, raw) => {
+        const repeat = ch.repeat ?? raw.repeat;
+        if (repeat === 'days') {
+          const days = ch.repeat_days ?? raw.repeat_days;
+          if (!days?.length) throw userError('בחרו באילו ימים');
+          const d0 = ch.remind_date ?? raw.remind_date, d = firstMatching(d0, days);
+          if (d !== d0) { if (!('remind_date' in ch)) base.remind_date = raw.remind_date; ch.remind_date = d; }
+        } else if ('repeat' in ch && !('repeat_days' in ch) && raw.repeat_days) {
+          ch.repeat_days = null; base.repeat_days = raw.repeat_days;
+        }
+        if (repeat === 'monthly' && ('repeat' in ch || 'remind_date' in ch)) {
+          ch.repeat_anchor = Number((ch.remind_date ?? raw.remind_date).slice(8)); base.repeat_anchor = raw.repeat_anchor;
+        }
+      }),
+    async removeRem(a) {
+      const raw = rawOf('reminders', a.id);
+      check(await sb.from('reminders').delete().eq('id', a.id));
+      return { undo: undoable('reminders', [raw], ['rem_deleted']) };
+    },
+
+    async addItem(a) {
+      const name = normName(a.name), qty = (a.qty || '').trim() || '1', note = (a.note || '').trim() || null;
+      check(await sb.from('item_categories').upsert({ name, category: a.cat }, { onConflict: 'household_id,name' }));
+      // already on the list: add the quantities when both are plain numbers, otherwise leave it
+      const dup = S.items.find((x) => !x.checked_at && x.raw && normName(x.name) === name);
+      if (dup) {
+        if (!/^\d+$/.test(dup.qty) || !/^\d+$/.test(qty)) return { note: { kind: 'exists', name } };
+        const total = String(Number(dup.qty) + Number(qty));
+        check(await sb.from('shopping_items').update({ qty: total, ...(note && !dup.note ? { note } : {}) }).eq('id', dup.id));
+        return { note: { kind: 'merged', name, qty: total } };
+      }
+      check(await sb.from('shopping_items').upsert({ id: a.id, name, qty, category: a.cat, note }, { onConflict: 'id', ignoreDuplicates: true }));
+    },
+    async toggleItem(a) {
+      const raw = rawOf('items', a.id);
+      check(await sb.from('shopping_items').update({ checked_at: raw.checked_at ? null : new Date().toISOString() }).eq('id', a.id));
+    },
+    async removeItem(a) {
+      const raw = rawOf('items', a.id);
+      check(await sb.from('shopping_items').delete().eq('id', a.id));
+      return { undo: undoable('shopping_items', [raw], ['item_deleted']) };
+    },
+    async clearCollected() {
+      const rows = check(await sb.rpc('clear_cart'));
+      if (rows?.length) return { undo: undoable('shopping_items', rows, ['cart_cleared']) };
+    },
+    async saveList(a) {
+      const name = normName(a.name || '');
+      if (!name) throw userError('תנו לרשימה שם');
+      const seen = new Set();
+      const items = S.items.filter((i) => i.raw && !seen.has(normName(i.name)) && seen.add(normName(i.name)))
+        .map((i) => ({ name: i.name, qty: i.qty, category: i.cat, note: i.note || null }));
+      if (!items.length) throw userError('הרשימה ריקה — אין מה לשמור');
+      const existing = S.lists.find((x) => normName(x.name) === name);
+      if (existing) check(await sb.from('saved_lists').update({ items, updated_at: new Date().toISOString() }).eq('id', existing.id));
+      else check(await sb.from('saved_lists').upsert({ id: a.id, name, items }, { onConflict: 'id', ignoreDuplicates: true }));
+      check(await sb.rpc('set_current_list', { p_id: existing ? existing.id : a.id }));   // what you just saved is what you're looking at
+      return { note: { kind: existing ? 'list_updated' : 'list_saved', count: items.length } };
+    },
+    async loadList(a) {
+      const l = S.lists.find((x) => x.id === a.id);
+      if (!l) throw userError('הרשימה לא נמצאה');
+      const before = new Map(S.items.filter((i) => i.raw).map((i) => [i.id, i.raw]));
+      const added = check(await sb.rpc('load_saved_list', { p_id: a.id })) || [];
+      const after = check(await sb.from('shopping_items').select('id, qty').in('id', [...before.keys()].length ? [...before.keys()] : ['00000000-0000-0000-0000-000000000000']));
+      const merged = after.filter((x) => before.get(x.id)?.qty !== x.qty).map((x) => before.get(x.id));
+      const token = uuid();
+      undos.set(token, async () => {
+        if (added.length) check(await sb.rpc('discard_items', { p_ids: added }));
+        check(await sb.rpc('undo_restore', { p_table: 'shopping_items', p_rows: merged, p_verbs: ['list_loaded'] }));
+      });
+      return { undo: token, note: { kind: 'list_loaded', name: l.name, added: added.length } };
+    },
+    updateItem: (a) => edit('shopping_items', 'items', a, { name: 'name', qty: 'qty', cat: 'category', note: 'note' }, mapItem, 'item_edited'),
+    async openList(a) {
+      const res = check(await sb.rpc('open_saved_list', { p_id: a.id }));
+      const token = uuid();
+      undos.set(token, async () => {
+        if (res.added?.length) check(await sb.rpc('discard_items', { p_ids: res.added }));
+        check(await sb.rpc('undo_restore', { p_table: 'shopping_items', p_rows: res.removed, p_verbs: ['list_opened'] }));
+        check(await sb.rpc('set_current_list', { p_id: res.previous }));
+      });
+      return { undo: token };
+    },
+    async newList() {
+      const res = check(await sb.rpc('new_shopping_list'));
+      const token = uuid();
+      undos.set(token, async () => {
+        check(await sb.rpc('undo_restore', { p_table: 'shopping_items', p_rows: res.removed, p_verbs: ['list_new'] }));
+        check(await sb.rpc('set_current_list', { p_id: res.previous }));
+      });
+      return { undo: token };
+    },
+    async deleteList(a) {
+      const raw = rawOf('lists', a.id);
+      const wasCurrent = S.currentListId === a.id;
+      check(await sb.from('saved_lists').delete().eq('id', a.id));
+      const token = uuid();
+      undos.set(token, async () => {
+        check(await sb.rpc('undo_restore', { p_table: 'saved_lists', p_rows: [raw], p_verbs: ['list_deleted'] }));
+        if (wasCurrent) check(await sb.rpc('set_current_list', { p_id: a.id }));
+      });
+      return { undo: token };
+    },
+    async setName(a) {
+      check(await sb.from('members').update({ display_name: a.name.trim() }).eq('id', ids[a.who]));
+    },
+    async undo(a) {
+      const run = undos.get(a.token);
+      if (!run) throw userError('אי אפשר לבטל יותר');
+      undos.delete(a.token);
+      await run();
+    }
+  };
+
+  async function call(op, args) {
+    if (!ops[op]) return { error: 'פעולה לא מוכרת' };
+    try {
+      const extra = (await ops[op](args)) || {};
+      if (extra.conflict) return extra;
+      return { state: await load(), ...extra };
+    } catch (e) {
+      if (e instanceof Offline) throw e;
+      return { error: e.user ? e.message : hebrew(e) };
+    }
+  }
+
+  async function refresh() {
+    try { const s = await load(); online = true; setState(s); }
+    catch (e) { if (e instanceof Offline) { online = false; render(); } else toast(hebrew(e)); }
+  }
+
+  async function start() {
+    if (CFG.testAccessToken) {
+      myId = JSON.parse(atob(CFG.testAccessToken.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))).sub;
+    } else {
+      const { data } = await sb.auth.getSession();
+      if (!data.session) { S = null; store.set('jeel.state', 'null'); return showLogin(); }
+      myId = data.session.user.id;
+      myEmail = data.session.user.email || '';
+      sb.auth.onAuthStateChange((event) => { if (event === 'SIGNED_OUT') location.reload(); });
+      if (CAME_FROM_EMAIL_LINK) sb.rpc('log_event', { p_kind: 'signed_in' }).then(() => {}, () => {});
+    }
+    await refresh();
+    if (S && !me) return showLogin('החשבון הזה לא משויך לבית. בקשו להוסיף אתכם (DEPLOY.md, שלב 6).');
+    let soon;
+    const later = () => { clearTimeout(soon); soon = setTimeout(refresh, 300); };
+    sb.channel('jeel').on('postgres_changes', { event: '*', schema: 'public' }, later).subscribe();
+    addEventListener('online', () => { refresh(); flushOutbox(); });
+    addEventListener('offline', () => { online = false; render(); });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+    setInterval(refresh, 60000);
+    flushOutbox();
+  }
+
+  const AUDIT_GROUPS = { tasks: ['tasks'], reminders: ['reminders'], shopping: ['shopping_items', 'item_categories', 'saved_lists', 'households'], other: ['members', 'session'] };
+  async function audit({ before, group, limit = 100 } = {}) {
+    let q = sb.from('audit_log').select('*').order('id', { ascending: false }).limit(limit);
+    if (before) q = q.lt('id', before);
+    if (AUDIT_GROUPS[group]) q = q.in('entity', AUDIT_GROUPS[group]);
+    return check(await q).map((r) => ({ id: r.id, at: r.at, actor: keyOf.get(r.actor_id) ?? null, via: r.via, action: r.action,
+      entity: r.entity, entity_id: r.entity_id, label: r.label, changes: r.changes, op: r.op }));
+  }
+  // sign-in / sign-out go to the audit trail (best effort: never blocks the user)
+  const logEvent = (kind) => sb.rpc('log_event', { p_kind: kind }).then(() => {}, () => {});
+
+  return { sb, call, start, refresh, audit, logEvent, memberKey: (id) => keyOf.get(id) ?? null, get email() { return myEmail; } };
+}
+
+// ---------- sign in ----------
+let loginEmail = '';
+function showLogin(message) {
+  $('loading').hidden = true;
+  $('login-step1').hidden = !!message;
+  $('login-step2').hidden = true;
+  $('login-signout').hidden = !message;
+  $('login-msg').textContent = message || '';
+  $('login-msg').hidden = !message;
+  openSheet($('login-sheet'), message ? null : $('login-email'));
+}
+const loginMsg = (t) => { $('login-msg').textContent = t; $('login-msg').hidden = !t; };
+$('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const auth = backend.sb?.auth;
+  if (!auth) return loginMsg('אין חיבור. נסו שוב בעוד רגע.');
+  if ($('login-step2').hidden) {
+    loginEmail = $('login-email').value.trim().toLowerCase();
+    if (!/^\S+@\S+\.\S+$/.test(loginEmail)) return loginMsg('כתבו כתובת מייל');
+    $('login-send').disabled = true;
+    const { error } = await auth.signInWithOtp({ email: loginEmail, options: { shouldCreateUser: false, emailRedirectTo: location.origin + location.pathname } });
+    $('login-send').disabled = false;
+    if (error) return loginMsg(/signup|not allowed|not found|invalid/i.test(error.message) ? 'הכתובת הזו לא מורשית להיכנס ל-Jeel.' : 'לא הצלחנו לשלוח: ' + error.message);
+    loginMsg('');
+    $('login-step1').hidden = true;
+    $('login-step2').hidden = false;
+    $('login-sent').textContent = `שלחנו קוד ל-${loginEmail}. אפשר להקליד אותו כאן או ללחוץ על הקישור במייל.`;
+    $('login-code').focus();
+  } else {
+    const token = $('login-code').value.replace(/\D/g, '');
+    if (token.length < 6) return loginMsg('הקוד הוא 6 ספרות לפחות');
+    $('login-verify').disabled = true;
+    const { error } = await auth.verifyOtp({ email: loginEmail, token, type: 'email' });
+    $('login-verify').disabled = false;
+    if (error) return loginMsg('הקוד לא נכון או שפג תוקפו. אפשר לבקש קוד חדש.');
+    await auth.getSession(); // make sure the new session is in place before logging
+    await backend.logEvent('signed_in');
+    location.reload();
+  }
+});
+
+// ---------- requests + offline queue ----------
+async function api(op, args = {}) {
+  let r;
+  try { r = await backend.call(op, args); }
+  catch {
+    online = false; // don't wait for the live connection to notice
+    if (QUEUEABLE.has(op)) {
+      outbox.push({ op, args });
+      saveOutbox();
+      render();
+      toast('אין חיבור — יישלח כשהחיבור יחזור');
+      return { ok: true, queued: true };
+    }
+    render();
+    toast('אין חיבור לשרת — לא נשמר');
+    return { ok: false };
+  }
+  if (r.conflict) return { ok: false, conflict: r.conflict };
+  if (r.error) { toast(r.error); return { ok: false }; }
+  online = true;
+  setState(r.state);
+  return { ok: true, undo: r.undo, note: r.note };
+}
+let flushing = false;
+async function flushOutbox() {
+  if (flushing || !outbox.length) return;
+  flushing = true;
+  try {
+    while (outbox.length) {
+      const { op, args } = outbox[0];
+      let r;
+      try { r = await backend.call(op, args); } catch { return; } // still offline
+      if (r.state) S = r.state;
+      else if (r.error) toast('לא נשמר: ' + (args.title || args.name || '') + ' — ' + r.error);
+      outbox.shift();
+      saveOutbox();
+    }
+    online = true;
+    toast('כל מה שחיכה נשלח');
+  } finally {
+    flushing = false;
+    if (S) setState(S);
+  }
+}
+
+// ---------- reminders that come due: browser notification + in-app card ----------
+function checkDue() {
+  if (!S || !me) return;
+  let changed = false;
+  for (const r of S.reminders) {
+    if (!forMe(r) || !dueNow(r)) continue;
+    const key = occKey(r);
+    if (notified.has(key)) continue;
+    notified.add(key); changed = true;
+    const e = eff(r);
+    const fresh = Date.now() - Date.parse(`${e.date}T${e.time}:00+03:00`) < 6 * 3600e3; // no burst of old ones on first open
+    if (fresh && 'Notification' in window && Notification.permission === 'granted') {
+      try { new Notification('⏰ ' + r.title, { body: `${e.time} · ${who(r.who).label}`, tag: key, icon: 'icons/icon-192.png' }); } catch { /* not allowed here */ }
+    }
+  }
+  if (changed) store.setJson('jeel.notified', [...notified].slice(-300));
+}
+
+// ---------- actions ----------
+const composerOf = (name) => document.querySelector(`[data-composer="${name}"]`);
+function expand(name) { composerOf(name).classList.add('open'); }
+async function addTask() {
+  const input = $('task-input'), title = input.value.trim();
+  if (!title) { expand('task'); return input.focus(); }
+  input.focus(); // keeps the phone keyboard up for the next one
+  const r = await api('addTask', { id: uuid(), title, who: ui.taskWho, due_date: ui.dates.task, due_time: $('task-time').value || null });
+  if (!r.ok) return; // nothing typed is lost
+  input.value = '';
+  $('task-time').value = '';
+  syncTime('task-time');
+}
+async function addRem() {
+  const input = $('rem-input'), title = input.value.trim();
+  if (!title) { expand('rem'); return input.focus(); }
+  if (ui.remRepeat === 'days' && !ui.remDays.length) return toast('בחרו באילו ימים');
+  input.focus();
+  const time = $('rem-time').value || '09:00';
+  let date = ui.dates.rem, moved = false;
+  if (date === today() && time < nowTime()) { date = addDays(date, 1); moved = true; }
+  const r = await api('addRem', { id: uuid(), title, date, time, repeat: ui.remRepeat, repeat_days: ui.remDays, who: ui.remWho });
+  if (!r.ok) return;
+  input.value = '';
+  ui.remRepeat = 'none';
+  ui.remDays = [];
+  render();
+  if (moved && !r.queued) toast('השעה כבר עברה היום — נקבעה למחר');
+}
+async function addItem() {
+  const input = $('item-input'), name = input.value.trim();
+  if (!name) { expand('item'); return input.focus(); }
+  input.focus();
+  const r = await api('addItem', { id: uuid(), name, qty: $('item-qty').value.trim() || '1', cat: $('item-cat').value, note: $('item-note').value.trim() || null });
+  if (!r.ok) return;
+  input.value = '';
+  $('item-qty').value = '1';
+  $('item-note').value = '';
+  ui.catTouched = false;
+  if (r.note?.kind === 'merged') toast(`כבר ברשימה · הכמות עודכנה ל-${r.note.qty}`);
+  else if (r.note?.kind === 'exists') toast('כבר ברשימה');
+}
+async function toggleTask(id) {
+  const t = S.tasks.find((x) => x.id === id);
+  const r = await api('toggleTask', { id });
+  if (t && !t.done_at) undoToast('סומן כבוצע', r);
+}
+async function toggleRem(id) {
+  const before = S.reminders.find((x) => x.id === id);
+  const r = await api('toggleRem', { id });
+  if (!r.ok || !before) return;
+  const after = S.reminders.find((x) => x.id === id);
+  if (before.done_at) return;
+  if (after && after.repeat !== 'none') undoToast(`בוצע · הבאה: ${dayLabel(after.date)} ${after.time}`, r);
+  else undoToast('סומנה כבוצעה', r);
+}
+async function snoozeRem(id) {
+  const r = await api('snoozeRem', { id, minutes: 30 });
+  const rec = S.reminders.find((x) => x.id === id);
+  if (rec) dismissed.delete(occKey(rec));
+  undoToast(`נדחתה ל-${rec ? eff(rec).time : '30 דק׳'}`, r);
+}
+function toggleItem(id) {
+  const it = S.items.find((x) => x.id === id);
+  if (!it) return;
+  if (ui.settling.has(id)) { // tapped again while it was settling: undo the check
+    clearTimeout(ui.settling.get(id));
+    ui.settling.delete(id);
+  } else if (!it.checked_at) {
+    ui.settling.set(id, setTimeout(() => { ui.settling.delete(id); render(); }, 2500));
+  }
+  render();
+  api('toggleItem', { id });
+}
+function setTab(tab) {
+  ui.tab = tab;
+  history.replaceState(null, '', '#' + tab);
+  document.querySelector('main').scrollTop = 0;
+  render();
+}
+
+document.addEventListener('click', async (e) => {
+  const b = e.target.closest('[data-act]');
+  if (!b || !S) return;
+  const { act, id, val } = b.dataset;
+  switch (act) {
+    case 'tab': return setTab(val);
+    case 'filter': ui.filter = val; return render();
+    case 'sort-dir':
+      ui.sort = { ...ui.sort, dir: -ui.sort.dir };
+      store.setJson('jeel.taskSort', ui.sort);
+      return render();
+    case 'theme':
+      store.set('jeel.theme', val);
+      return applyTheme(val);
+    case 'task-who': ui.taskWho = val; return render();
+    case 'rem-who': ui.remWho = val; return render();
+    case 'pick-date':
+      ui.dates[b.dataset.for] = bucketDate(val);
+      return b.dataset.for === 'edit' ? renderEdit() : render();
+    case 'clear-time': $(val).value = ''; syncTime(val); return $(val).focus();
+    case 'rem-repeat':
+      ui.remRepeat = val;
+      if (val === 'days' && !ui.remDays.length) ui.remDays = [dow(ui.dates.rem)]; // start from the chosen date's weekday
+      return render();
+    case 'rem-day': {
+      const d = Number(val);
+      ui.remDays = ui.remDays.includes(d) ? ui.remDays.filter((x) => x !== d) : [...ui.remDays, d].sort();
+      return render();
+    }
+    case 'add-task': return addTask();
+    case 'add-rem': return addRem();
+    case 'add-item': return addItem();
+    case 'toggle-task': return toggleTask(id);
+    case 'remove-task': return undoToast('המשימה נמחקה', await api('removeTask', { id }));
+    case 'toggle-rem': return toggleRem(id);
+    case 'snooze-rem': return snoozeRem(id);
+    case 'dismiss-alert': {
+      const r = S.reminders.find((x) => x.id === id);
+      if (r) { dismissed.add(occKey(r)); store.setJson('jeel.dismissed', [...dismissed].slice(-300)); }
+      return render();
+    }
+    case 'remove-rem': return undoToast('התזכורת נמחקה', await api('removeRem', { id }));
+    case 'toggle-item': return toggleItem(id);
+    case 'remove-item': return undoToast('הוסר מהרשימה', await api('removeItem', { id }));
+    case 'clear-cart': {
+      const n = S.items.filter((x) => x.checked_at).length;
+      return undoToast(`סיימתם · ${n} פריטים ירדו מהרשימה`, await api('clearCollected'));
+    }
+    case 'drop-pending':
+      outbox = outbox.filter((o) => o.args.id !== id); saveOutbox();
+      return render();
+    case 'edit-task': return openEdit('task', id);
+    case 'edit-rem': return openEdit('rem', id);
+    case 'edit-who': editing.form.who = val; return renderEdit();
+    case 'edit-repeat':
+      editing.form.repeat = val;
+      if (val === 'days' && !editing.form.days.length) editing.form.days = [dow(ui.dates.edit)];
+      return renderEdit();
+    case 'edit-day': {
+      const d = Number(val), ds = editing.form.days;
+      editing.form.days = ds.includes(d) ? ds.filter((x) => x !== d) : [...ds, d].sort();
+      return renderEdit();
+    }
+    case 'close-sheet': return closeSheet();
+    case 'history': renderHistory(); return openSheet($('history-sheet'));
+    case 'audit': return openAudit();
+    case 'settings': return openWho(1);
+    case 'lists-open': return openLists();
+    case 'list-save': return saveList();
+    case 'list-switch': {
+      const l = (S.lists || []).find((x) => x.id === id);
+      const r = await api('openList', { id });
+      if (!r.ok) return;
+      closeSheet();
+      if (ui.tab !== 'shopping') setTab('shopping');
+      $('list-name').value = '';
+      return undoToast(`נפתחה "${l?.name ?? ''}" · ${S.items.length} פריטים`, r);
+    }
+    case 'list-add': {
+      const r = await api('loadList', { id });
+      if (!r.ok) return;
+      closeSheet();
+      if (ui.tab !== 'shopping') setTab('shopping');
+      return undoToast(r.note?.added ? `נוספו ${r.note.added} פריטים מ"${r.note.name}"` : `הכול מ"${r.note?.name}" כבר ברשימה`, r);
+    }
+    case 'list-new': {
+      const r = await api('newList');
+      if (!r.ok) return;
+      closeSheet();
+      $('list-name').value = '';
+      return undoToast('התחלתם רשימה חדשה', r);
+    }
+    case 'edit-item': return openItemEdit(id);
+    case 'list-delete': {
+      const l = (S.lists || []).find((x) => x.id === id);
+      return undoToast(`"${l?.name ?? ''}" נמחקה`, await api('deleteList', { id }));
+    }
+    case 'audit-more': return loadAudit(true);
+    case 'audit-filter': audit.group = val; return loadAudit(false);
+    case 'enable-notif':
+      await Notification.requestPermission();
+      return render();
+    case 'pick-me':
+      me = val; store.set('ourhome.me', val);
+      render(); checkDue();
+      api('logEvent', { kind: 'identity_selected' });
+      if (S.members.partner.name === DEFAULT_PARTNER) return openWho(2);
+      return closeSheet();
+    case 'who-rename': return openWho(2);
+    case 'sign-out':
+      await backend.logEvent?.('signed_out');
+      store.set('jeel.state', 'null');
+      outbox = []; saveOutbox();
+      await backend.sb?.auth.signOut();
+      return location.reload();
+    case 'login-back':
+      $('login-step2').hidden = true; $('login-step1').hidden = false; loginMsg('');
+      return $('login-email').focus();
+    case 'save-name': return saveName();
+  }
+});
+
+// composers: just the text box until you start, options open on focus, fold back when left empty
+document.addEventListener('focusin', (e) => { if (e.target.matches('[data-main]')) e.target.closest('.composer').classList.add('open'); });
+document.addEventListener('pointerdown', (e) => {
+  document.querySelectorAll('.composer.open').forEach((c) => {
+    if (!c.contains(e.target) && !c.querySelector('[data-main]').value.trim()) c.classList.remove('open');
+  });
+});
+const onEnter = (fn) => (e) => {
+  if (e.isComposing) return;
+  if (e.key === 'Enter') { e.preventDefault(); fn(); }
+  if (e.key === 'Escape' && !e.target.value) { e.target.blur(); e.target.closest('.composer')?.classList.remove('open'); }
+};
+$('task-input').addEventListener('keydown', onEnter(addTask));
+$('rem-input').addEventListener('keydown', onEnter(addRem));
+$('item-input').addEventListener('keydown', onEnter(addItem));
+$('item-qty').addEventListener('keydown', onEnter(addItem));
+$('item-note').addEventListener('keydown', onEnter(addItem));
+$('item-form').addEventListener('submit', saveItemEdit);
+$('partner-name').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); saveName(); } });
+$('item-input').addEventListener('input', () => { if (!ui.catTouched) { const c = guessCat($('item-input').value); if (c) $('item-cat').value = c; } });
+$('item-cat').addEventListener('change', () => { ui.catTouched = true; });
+$('list-name').addEventListener('input', () => S && renderLists());
+$('list-name').addEventListener('keydown', (e) => { if (e.key === 'Enter' && !e.isComposing) { e.preventDefault(); saveList(); } });
+$('rem-time').addEventListener('input', syncRemTimeHint);
+$('task-sort').addEventListener('change', (e) => {
+  const key = SORTS[e.target.value] ? e.target.value : 'due';
+  ui.sort = { key, dir: SORTS[key].dir };
+  store.setJson('jeel.taskSort', ui.sort);
+  render();
+});
+document.addEventListener('change', (e) => {
+  const kind = e.target.dataset?.dateFor;
+  if (!kind) return;
+  if (e.target.value) ui.dates[kind] = e.target.value; // a cleared calendar keeps the last date
+  return kind === 'edit' ? renderEdit() : render();
+});
+for (const id of ['task-time', 'edit-time']) $(id).addEventListener('input', () => syncTime(id));
+$('edit-form').addEventListener('submit', saveEdit);
+window.addEventListener('hashchange', () => { const t = location.hash.slice(1); if (TABS.includes(t) && t !== ui.tab) setTab(t); });
+setInterval(() => { render(); checkDue(); }, 30000); // overdue states, relative times, midnight
+setInterval(() => { if (outbox.length) flushOutbox(); }, 10000);
+
+if ('serviceWorker' in navigator && isSecureContext) navigator.serviceWorker.register('sw.js').catch(() => {});
+syncTime('task-time');
+if (S) render(); // last known data right away, even offline
+const loadScript = (src) => new Promise((resolve, reject) => {
+  const s = document.createElement('script');
+  s.src = src; s.onload = resolve; s.onerror = reject;
+  document.head.appendChild(s);
+});
+(async () => {
+  if (!CLOUD) { backend = localBackend; return backend.start(); }
+  try { await loadScript(SUPABASE_JS); }
+  catch { // offline before the library was ever cached: show what we have, retry when back
+    online = false; render();
+    return addEventListener('online', () => location.reload(), { once: true });
+  }
+  backend = cloudBackend();
+  await backend.start();
+})();
+</script>
+</body>
+</html>

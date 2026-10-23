@@ -1,0 +1,5 @@
+@echo off
+title Jeel
+cd /d "%~dp0"
+node server.js --open
+pause

@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>הבית שלנו</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+a{color:#2457A6}a:hover{color:#1D4A8F}
+</style>
+</helmet>
+<div dir="rtl" style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #EEF1F4; color: #18212B; font-family: Rubik, 'Segoe UI', Tahoma, sans-serif; overflow: hidden; position: relative">
+
+<header style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 22px 20px 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 13px; color: #56616E">יום שני, 19 באוקטובר</span>
+<h1 style="margin: 0; font-size: 24px; font-weight: 700; line-height: 1.2">{{screenTitle}}</h1>
+</div>
+<div style="display: flex; align-items: center; flex: none" title="נאור ו{{partner}}">
+<span style="width: 38px; height: 38px; border-radius: 50%; background: #2457A6; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; border: 2px solid #EEF1F4; box-sizing: border-box">נ</span>
+<span style="width: 38px; height: 38px; border-radius: 50%; background: #B5531C; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 15px; border: 2px solid #EEF1F4; box-sizing: border-box; margin-inline-start: -10px">{{partnerInitial}}</span>
+</div>
+</header>
+
+<main style="flex: 1; min-height: 0; overflow-y: auto; padding: 4px 16px 20px; display: flex; flex-direction: column; gap: 14px">
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{isHome}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px">
+<button type="button" onClick="{{goTasks}}" style="background: #FFFFFF; border: 0; border-radius: 18px; padding: 14px 12px; min-height: 96px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 6px; text-align: start; font-family: inherit; color: #18212B; cursor: pointer; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<span style="font-size: 28px; font-weight: 700">{{openTaskCount}}</span>
+<span style="font-size: 13px; color: #56616E; line-height: 1.3">משימות פתוחות</span>
+</button>
+<button type="button" onClick="{{goReminders}}" style="background: #FFFFFF; border: 0; border-radius: 18px; padding: 14px 12px; min-height: 96px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 6px; text-align: start; font-family: inherit; color: #18212B; cursor: pointer; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<span style="font-size: 28px; font-weight: 700">{{todayRemCount}}</span>
+<span style="font-size: 13px; color: #56616E; line-height: 1.3">תזכורות להיום</span>
+</button>
+<button type="button" onClick="{{goShopping}}" style="background: #FFFFFF; border: 0; border-radius: 18px; padding: 14px 12px; min-height: 96px; display: flex; flex-direction: column; align-items: flex-start; justify-content: space-between; gap: 6px; text-align: start; font-family: inherit; color: #18212B; cursor: pointer; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<span style="font-size: 28px; font-weight: 700">{{shopLeft}}</span>
+<span style="font-size: 13px; color: #56616E; line-height: 1.3">פריטים לקנות</span>
+</button>
+</div>
+
+<section style="background: #18212B; color: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #C9D1DA">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+<span>התזכורת הבאה להיום</span>
+</div>
+<sc-if value="{{hasNext}}" hint-placeholder-val="{{true}}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 18px; font-weight: 600">{{next.title}}</span>
+<span style="font-size: 13px; color: #C9D1DA">{{next.time}} · {{next.whoLabel}}</span>
+</div>
+<button type="button" onClick="{{next.toggle}}" style="min-height: 44px; padding: 0 16px; border-radius: 12px; border: 0; background: #FFFFFF; color: #18212B; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; flex: none">בוצע</button>
+</div>
+</sc-if>
+<sc-if value="{{noNext}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 15px">אין עוד תזכורות להיום. ערב רגוע.</span>
+</sc-if>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<div style="display: flex; align-items: center; justify-content: space-between">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">משימות להיום</h2>
+<button type="button" onClick="{{goTasks}}" style="min-height: 44px; padding: 0 4px; border: 0; background: transparent; color: #2457A6; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">לכל המשימות</button>
+</div>
+<sc-for list="{{todayTasks}}" as="t" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{t.toggle}}" aria-pressed="{{t.pressed}}" aria-label="{{t.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.boxBorder}}; background: {{t.boxBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 0">
+<span style="font-size: 15px; font-weight: 500; color: {{t.titleColor}}; text-decoration: {{t.deco}}">{{t.title}}</span>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<span style="font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: {{t.whoBg}}; color: {{t.whoFg}}">{{t.whoLabel}}</span>
+</div>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{noTodayTasks}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding: 12px 0; font-size: 14px; color: #56616E; border-top: 1px solid #EDF0F3">הכול סגור להיום.</p>
+</sc-if>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">עדכונים אחרונים</h2>
+<sc-for list="{{feed}}" as="a" hint-placeholder-count="4">
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<span style="width: 30px; height: 30px; flex: none; border-radius: 50%; background: {{a.solid}}; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600">{{a.initial}}</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; line-height: 1.4"><strong style="font-weight: 600">{{a.actorLabel}}</strong> {{a.text}}</span>
+<span style="font-size: 12px; color: #56616E">{{a.time}}</span>
+</div>
+</div>
+</sc-for>
+</section>
+</div>
+</sc-if>
+
+<!-- ============ TASKS ============ -->
+<sc-if value="{{isTasks}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; gap: 6px; flex-wrap: wrap" role="group" aria-label="סינון משימות">
+<sc-for list="{{filterChips}}" as="p" hint-placeholder-count="4">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{p.border}}; background: {{p.bg}}; color: {{p.fg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{p.label}}</button>
+</sc-for>
+</div>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<div style="display: flex; gap: 8px">
+<label for="task-input" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">משימה חדשה</label>
+<input id="task-input" type="text" value="{{newTask}}" onChange="{{onTaskInput}}" onKeyDown="{{onTaskKey}}" placeholder="מה צריך לעשות?" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 14px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF">
+<button type="button" onClick="{{addTask}}" aria-label="הוספת משימה" style="width: 44px; height: 44px; flex: none; border: 0; border-radius: 12px; background: #18212B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center">
+<span style="font-size: 13px; color: #56616E; min-width: 52px">באחריות</span>
+<sc-for list="{{taskWhoPills}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{p.border}}; background: {{p.bg}}; color: {{p.fg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{p.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center">
+<span style="font-size: 13px; color: #56616E; min-width: 52px">מתי</span>
+<sc-for list="{{taskDuePills}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{p.border}}; background: {{p.bg}}; color: {{p.fg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{p.label}}</button>
+</sc-for>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<h2 style="margin: 0 0 6px; font-size: 16px; font-weight: 600">פתוחות · {{openFilteredCount}}</h2>
+<sc-for list="{{openTasks}}" as="t" hint-placeholder-count="4">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{t.toggle}}" aria-pressed="{{t.pressed}}" aria-label="{{t.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.boxBorder}}; background: {{t.boxBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 0">
+<span style="font-size: 15px; font-weight: 500; color: {{t.titleColor}}; text-decoration: {{t.deco}}">{{t.title}}</span>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<span style="font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: {{t.whoBg}}; color: {{t.whoFg}}">{{t.whoLabel}}</span>
+<span style="font-size: 12px; font-weight: 500; color: {{t.dueColor}}">{{t.dueLabel}}</span>
+</div>
+</div>
+<button type="button" onClick="{{t.remove}}" aria-label="{{t.removeLabel}}" style="width: 44px; height: 44px; flex: none; border: 0; background: transparent; color: #56616E; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 12px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+</sc-for>
+<sc-if value="{{noOpenTasks}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding: 12px 0; font-size: 14px; color: #56616E; border-top: 1px solid #EDF0F3">אין משימות פתוחות כאן.</p>
+</sc-if>
+</section>
+
+<sc-if value="{{hasDoneTasks}}" hint-placeholder-val="{{true}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<h2 style="margin: 0 0 6px; font-size: 16px; font-weight: 600; color: #56616E">הושלמו · {{doneFilteredCount}}</h2>
+<sc-for list="{{doneTasks}}" as="t" hint-placeholder-count="1">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{t.toggle}}" aria-pressed="{{t.pressed}}" aria-label="{{t.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid {{t.boxBorder}}; background: {{t.boxBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{t.done}}" hint-placeholder-val="{{true}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 0">
+<span style="font-size: 15px; font-weight: 500; color: {{t.titleColor}}; text-decoration: {{t.deco}}">{{t.title}}</span>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<span style="font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: {{t.whoBg}}; color: {{t.whoFg}}">{{t.whoLabel}}</span>
+</div>
+</div>
+<button type="button" onClick="{{t.remove}}" aria-label="{{t.removeLabel}}" style="width: 44px; height: 44px; flex: none; border: 0; background: transparent; color: #56616E; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 12px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+</sc-for>
+</section>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ REMINDERS ============ -->
+<sc-if value="{{isReminders}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<div style="display: flex; gap: 8px">
+<label for="rem-input" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">תזכורת חדשה</label>
+<input id="rem-input" type="text" value="{{newRem}}" onChange="{{onRemInput}}" onKeyDown="{{onRemKey}}" placeholder="על מה להזכיר?" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 14px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF">
+<button type="button" onClick="{{addRem}}" aria-label="הוספת תזכורת" style="width: 44px; height: 44px; flex: none; border: 0; border-radius: 12px; background: #18212B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center">
+<span style="font-size: 13px; color: #56616E; min-width: 52px">מתי</span>
+<sc-for list="{{remWhenPills}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{p.border}}; background: {{p.bg}}; color: {{p.fg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{p.label}}</button>
+</sc-for>
+</div>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<label for="rem-time" style="font-size: 13px; color: #56616E; min-width: 52px">שעה</label>
+<input id="rem-time" type="time" value="{{newRemTime}}" onChange="{{onRemTime}}" style="height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 12px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF">
+<button type="button" onClick="{{toggleRepeat}}" aria-pressed="{{repeatPressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{repeatBorder}}; background: {{repeatBg}}; color: {{repeatFg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; display: flex; align-items: center; gap: 6px">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l3 3-3 3"></path><path d="M4 11V9a4 4 0 0 1 4-4h12"></path><path d="M7 22l-3-3 3-3"></path><path d="M20 13v2a4 4 0 0 1-4 4H4"></path></svg>
+<span>חוזרת כל שבוע</span>
+</button>
+</div>
+<div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center">
+<span style="font-size: 13px; color: #56616E; min-width: 52px">למי</span>
+<sc-for list="{{remWhoPills}}" as="p" hint-placeholder-count="3">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="min-height: 44px; padding: 0 14px; border-radius: 999px; border: 1px solid {{p.border}}; background: {{p.bg}}; color: {{p.fg}}; font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{p.label}}</button>
+</sc-for>
+</div>
+</section>
+
+<sc-for list="{{remGroups}}" as="g" hint-placeholder-count="2">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<h2 style="margin: 0 0 6px; font-size: 16px; font-weight: 600">{{g.name}} · {{g.count}}</h2>
+<sc-for list="{{g.items}}" as="r" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{r.toggle}}" aria-pressed="{{r.pressed}}" aria-label="{{r.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; border: 2px solid {{r.boxBorder}}; background: {{r.boxBg}}; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{r.done}}" hint-placeholder-val="{{false}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></sc-if>
+</span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 8px 0">
+<span style="font-size: 15px; font-weight: 500; color: {{r.titleColor}}; text-decoration: {{r.deco}}">{{r.title}}</span>
+<div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap">
+<span style="font-size: 12px; font-weight: 600; color: #18212B; display: flex; align-items: center; gap: 4px">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+{{r.time}}</span>
+<span style="font-size: 12px; font-weight: 500; padding: 2px 8px; border-radius: 999px; background: {{r.whoBg}}; color: {{r.whoFg}}">{{r.whoLabel}}</span>
+<sc-if value="{{r.hasRepeat}}" hint-placeholder-val="{{false}}">
+<span style="font-size: 12px; color: #56616E; display: flex; align-items: center; gap: 4px">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2l3 3-3 3"></path><path d="M4 11V9a4 4 0 0 1 4-4h12"></path><path d="M7 22l-3-3 3-3"></path><path d="M20 13v2a4 4 0 0 1-4 4H4"></path></svg>
+{{r.repeat}}</span>
+</sc-if>
+</div>
+</div>
+<button type="button" onClick="{{r.remove}}" aria-label="{{r.removeLabel}}" style="width: 44px; height: 44px; flex: none; border: 0; background: transparent; color: #56616E; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 12px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+</sc-for>
+</section>
+</sc-for>
+<sc-if value="{{noReminders}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding: 16px; font-size: 14px; color: #56616E; background: #FFFFFF; border-radius: 18px">אין תזכורות. הוסיפו את הראשונה למעלה.</p>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- ============ SHOPPING ============ -->
+<sc-if value="{{isShopping}}" hint-placeholder-val="{{false}}">
+<div style="display: flex; flex-direction: column; gap: 14px">
+<section style="background: #18212B; color: #FFFFFF; border-radius: 20px; padding: 16px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px">
+<span style="font-size: 15px; font-weight: 600">נאספו {{collected}} מתוך {{totalItems}}</span>
+<span style="font-size: 13px; color: #C9D1DA">{{shopLeft}} נשארו</span>
+</div>
+<div style="height: 8px; border-radius: 999px; background: #3A4552; overflow: hidden">
+<div style="height: 8px; border-radius: 999px; background: #FFFFFF; width: {{progressWidth}}"></div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<div style="display: flex; gap: 8px">
+<label for="item-input" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">פריט חדש</label>
+<input id="item-input" type="text" value="{{newItem}}" onChange="{{onItemInput}}" onKeyDown="{{onItemKey}}" placeholder="מה חסר בבית?" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 14px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF">
+<label for="item-qty" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">כמות</label>
+<input id="item-qty" type="text" value="{{newItemQty}}" onChange="{{onItemQty}}" onKeyDown="{{onItemKey}}" placeholder="כמות" style="width: 64px; flex: none; height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 10px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF; text-align: center">
+<button type="button" onClick="{{addItem}}" aria-label="הוספה לרשימה" style="width: 44px; height: 44px; flex: none; border: 0; border-radius: 12px; background: #18212B; color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg>
+</button>
+</div>
+<div style="display: flex; gap: 8px; align-items: center">
+<label for="item-cat" style="font-size: 13px; color: #56616E; min-width: 52px">קטגוריה</label>
+<select id="item-cat" value="{{newItemCat}}" onChange="{{onItemCat}}" style="flex: 1; min-width: 0; height: 44px; box-sizing: border-box; border: 1px solid #C9D0D8; border-radius: 12px; padding: 0 12px; font-family: inherit; font-size: 15px; color: #18212B; background: #FFFFFF">
+<option value="פירות וירקות">פירות וירקות</option>
+<option value="מוצרי חלב">מוצרי חלב</option>
+<option value="מאפים">מאפים</option>
+<option value="יבשים">יבשים</option>
+<option value="ניקיון ובית">ניקיון ובית</option>
+<option value="אחר">אחר</option>
+</select>
+</div>
+</section>
+
+<sc-for list="{{catGroups}}" as="c" hint-placeholder-count="3">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<h2 style="margin: 0 0 6px; font-size: 16px; font-weight: 600">{{c.name}} · {{c.count}}</h2>
+<sc-for list="{{c.items}}" as="it" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{it.toggle}}" aria-pressed="{{it.pressed}}" aria-label="{{it.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid #7D8792; background: #FFFFFF"></span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 10px 0; flex-wrap: wrap">
+<span style="font-size: 15px; font-weight: 500">{{it.name}}</span>
+<span style="font-size: 12px; color: #56616E; background: #EEF1F4; border-radius: 6px; padding: 2px 6px">{{it.qty}}</span>
+</div>
+<span title="נוסף על ידי {{it.byLabel}}" style="width: 24px; height: 24px; flex: none; border-radius: 50%; background: {{it.byBg}}; color: {{it.byFg}}; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{it.byInitial}}</span>
+<button type="button" onClick="{{it.remove}}" aria-label="{{it.removeLabel}}" style="width: 44px; height: 44px; flex: none; border: 0; background: transparent; color: #56616E; display: flex; align-items: center; justify-content: center; cursor: pointer; border-radius: 12px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+</button>
+</div>
+</sc-for>
+</section>
+</sc-for>
+<sc-if value="{{allCollected}}" hint-placeholder-val="{{false}}">
+<p style="margin: 0; padding: 16px; font-size: 14px; color: #56616E; background: #FFFFFF; border-radius: 18px">הרשימה ריקה. אפשר ללכת הביתה.</p>
+</sc-if>
+
+<sc-if value="{{hasCollected}}" hint-placeholder-val="{{true}}">
+<section style="background: #FFFFFF; border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 4px; box-shadow: 0 1px 2px rgba(24,33,43,0.06)">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; color: #56616E">בעגלה · {{collected}}</h2>
+<button type="button" onClick="{{clearCollected}}" style="min-height: 44px; padding: 0 12px; border: 1px solid #C9D0D8; border-radius: 12px; background: #FFFFFF; color: #18212B; font-family: inherit; font-size: 13px; font-weight: 500; cursor: pointer">ניקוי מהרשימה</button>
+</div>
+<sc-for list="{{collectedItems}}" as="it" hint-placeholder-count="2">
+<div style="display: flex; align-items: center; gap: 6px; border-top: 1px solid #EDF0F3; padding: 2px 0">
+<button type="button" onClick="{{it.toggle}}" aria-pressed="{{it.pressed}}" aria-label="{{it.toggleLabel}}" style="width: 44px; height: 44px; flex: none; display: flex; align-items: center; justify-content: center; background: transparent; border: 0; padding: 0; cursor: pointer">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 8px; border: 2px solid #18212B; background: #18212B; display: flex; align-items: center; justify-content: center">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg>
+</span>
+</button>
+<div style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; padding: 10px 0">
+<span style="font-size: 15px; color: #5E6873; text-decoration: line-through">{{it.name}}</span>
+<span style="font-size: 12px; color: #56616E">{{it.qty}}</span>
+</div>
+</div>
+</sc-for>
+</section>
+</sc-if>
+</div>
+</sc-if>
+
+</main>
+
+<nav aria-label="ניווט ראשי" style="display: flex; background: #FFFFFF; border-top: 1px solid #DCE1E6; padding: 6px 8px 14px; flex: none">
+<button type="button" onClick="{{goHome}}" aria-current="{{homeCurrent}}" style="flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: transparent; border: 0; color: {{navHomeFg}}; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer">
+<span style="padding: 4px 16px; border-radius: 999px; background: {{navHomeBg}}; display: flex">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"></path><path d="M5 10v10h14V10"></path><path d="M10 20v-5h4v5"></path></svg>
+</span>
+<span>בית</span>
+</button>
+<button type="button" onClick="{{goTasks}}" aria-current="{{tasksCurrent}}" style="flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: transparent; border: 0; color: {{navTasksFg}}; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer">
+<span style="padding: 4px 16px; border-radius: 999px; background: {{navTasksBg}}; display: flex">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4"></rect><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg>
+</span>
+<span>משימות</span>
+</button>
+<button type="button" onClick="{{goReminders}}" aria-current="{{remCurrent}}" style="flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: transparent; border: 0; color: {{navRemFg}}; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer">
+<span style="padding: 4px 16px; border-radius: 999px; background: {{navRemBg}}; display: flex">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"></path><path d="M10 20a2 2 0 0 0 4 0"></path></svg>
+</span>
+<span>תזכורות</span>
+</button>
+<button type="button" onClick="{{goShopping}}" aria-current="{{shopCurrent}}" style="flex: 1; min-height: 56px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; background: transparent; border: 0; color: {{navShopFg}}; font-family: inherit; font-size: 12px; font-weight: 500; cursor: pointer">
+<span style="padding: 4px 16px; border-radius: 999px; background: {{navShopBg}}; display: flex; position: relative">
+<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4h2l2.4 11h11l2-8H6.2"></path><circle cx="10" cy="19.5" r="1.3"></circle><circle cx="17" cy="19.5" r="1.3"></circle></svg>
+<sc-if value="{{hasShopBadge}}" hint-placeholder-val="{{true}}">
+<span style="position: absolute; top: -2px; inset-inline-end: 6px; min-width: 18px; height: 18px; padding: 0 4px; box-sizing: border-box; border-radius: 999px; background: #B5531C; color: #FFFFFF; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center">{{shopLeft}}</span>
+</sc-if>
+</span>
+<span>קניות</span>
+</button>
+</nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"partnerName":{"editor":"text","default":"בת הזוג"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  state = {
+    tab: 'home',
+    taskFilter: 'all',
+    newTask: '', newTaskWho: 'both', newTaskDue: 'היום',
+    newRem: '', newRemWhen: 'היום', newRemTime: '19:00', newRemWho: 'both', newRemRepeat: false,
+    newItem: '', newItemQty: '1', newItemCat: 'פירות וירקות',
+    tasks: [
+      { id: 1, title: 'להזמין טכנאי למזגן', who: 'both', due: 'היום', done: false },
+      { id: 2, title: 'לשלם את חשבון החשמל', who: 'me', due: 'היום', done: false },
+      { id: 3, title: 'להחזיר את החבילה לדואר', who: 'her', due: 'מחר', done: false },
+      { id: 4, title: 'להזמין מקום לארוחת שישי', who: 'me', due: 'השבוע', done: false },
+      { id: 5, title: 'לסדר את המרפסת לקראת החורף', who: 'both', due: 'השבוע', done: false },
+      { id: 6, title: 'לקבוע תור לרופא שיניים', who: 'her', due: 'היום', done: true }
+    ],
+    reminders: [
+      { id: 11, title: 'להוציא את הפח לפינוי', who: 'me', when: 'היום', time: '20:30', repeat: 'כל שני וחמישי', done: false },
+      { id: 12, title: 'לאסוף כביסה מהמכבסה', who: 'both', when: 'היום', time: '18:30', repeat: '', done: false },
+      { id: 13, title: 'להתקשר לסבתא – יום הולדת', who: 'her', when: 'מחר', time: '10:00', repeat: '', done: false },
+      { id: 14, title: 'חידוש ביטוח הרכב', who: 'me', when: 'השבוע', time: '09:00', repeat: '', done: false },
+      { id: 15, title: 'להשקות את העציצים', who: 'her', when: 'היום', time: '08:00', repeat: 'כל יום', done: true }
+    ],
+    items: [
+      { id: 21, name: 'חלב 3%', qty: '2', cat: 'מוצרי חלב', by: 'her', done: false },
+      { id: 22, name: 'קוטג׳', qty: '1', cat: 'מוצרי חלב', by: 'me', done: false },
+      { id: 23, name: 'עגבניות', qty: '1 ק״ג', cat: 'פירות וירקות', by: 'me', done: false },
+      { id: 24, name: 'מלפפונים', qty: '6', cat: 'פירות וירקות', by: 'her', done: false },
+      { id: 25, name: 'בננות', qty: 'אשכול', cat: 'פירות וירקות', by: 'her', done: false },
+      { id: 26, name: 'לחם מחמצת', qty: '1', cat: 'מאפים', by: 'her', done: false },
+      { id: 27, name: 'נייר טואלט', qty: 'חבילה', cat: 'ניקיון ובית', by: 'me', done: false },
+      { id: 28, name: 'אורז בסמטי', qty: '1', cat: 'יבשים', by: 'me', done: false },
+      { id: 29, name: 'נוזל כלים', qty: '1', cat: 'ניקיון ובית', by: 'her', done: true },
+      { id: 30, name: 'פולי קפה', qty: '500 גר׳', cat: 'יבשים', by: 'me', done: true }
+    ],
+    activity: [
+      { id: 41, actor: 'her', text: 'הוסיפה לרשימה: חלב 3%', time: 'לפני 12 דק׳' },
+      { id: 42, actor: 'me', text: 'סימן כבוצע: לשלם ארנונה', time: 'לפני שעה' },
+      { id: 43, actor: 'her', text: 'סימנה כבוצע: לקבוע תור לרופא שיניים', time: 'הבוקר' },
+      { id: 44, actor: 'me', text: 'הוסיף תזכורת: חידוש ביטוח הרכב', time: 'אתמול' }
+    ]
+  };
+  _seq = 1000;
+  nid() { this._seq += 1; return this._seq; }
+  logged(text) {
+    return [{ id: this.nid(), actor: 'me', text: text, time: 'עכשיו' }].concat(this.state.activity).slice(0, 8);
+  }
+
+  addTask() {
+    const s = this.state; const title = s.newTask.trim();
+    if (!title) return;
+    this.setState({
+      tasks: [{ id: this.nid(), title: title, who: s.newTaskWho, due: s.newTaskDue, done: false }].concat(s.tasks),
+      newTask: '', activity: this.logged('הוסיף משימה: ' + title)
+    });
+  }
+  toggleTask(id) {
+    const t = this.state.tasks.find((x) => x.id === id); if (!t) return;
+    this.setState({
+      tasks: this.state.tasks.map((x) => x.id === id ? Object.assign({}, x, { done: !x.done }) : x),
+      activity: this.logged((t.done ? 'החזיר לפתוחות: ' : 'סימן כבוצע: ') + t.title)
+    });
+  }
+  removeTask(id) {
+    const t = this.state.tasks.find((x) => x.id === id); if (!t) return;
+    this.setState({ tasks: this.state.tasks.filter((x) => x.id !== id), activity: this.logged('מחק משימה: ' + t.title) });
+  }
+
+  addRem() {
+    const s = this.state; const title = s.newRem.trim();
+    if (!title) return;
+    this.setState({
+      reminders: s.reminders.concat([{ id: this.nid(), title: title, who: s.newRemWho, when: s.newRemWhen, time: s.newRemTime || '09:00', repeat: s.newRemRepeat ? 'כל שבוע' : '', done: false }]),
+      newRem: '', newRemRepeat: false, activity: this.logged('הוסיף תזכורת: ' + title)
+    });
+  }
+  toggleRem(id) {
+    const r = this.state.reminders.find((x) => x.id === id); if (!r) return;
+    this.setState({
+      reminders: this.state.reminders.map((x) => x.id === id ? Object.assign({}, x, { done: !x.done }) : x),
+      activity: this.logged((r.done ? 'החזיר תזכורת: ' : 'סימן תזכורת כבוצעה: ') + r.title)
+    });
+  }
+  removeRem(id) {
+    const r = this.state.reminders.find((x) => x.id === id); if (!r) return;
+    this.setState({ reminders: this.state.reminders.filter((x) => x.id !== id), activity: this.logged('מחק תזכורת: ' + r.title) });
+  }
+
+  addItem() {
+    const s = this.state; const name = s.newItem.trim();
+    if (!name) return;
+    this.setState({
+      items: [{ id: this.nid(), name: name, qty: s.newItemQty.trim() || '1', cat: s.newItemCat, by: 'me', done: false }].concat(s.items),
+      newItem: '', newItemQty: '1', activity: this.logged('הוסיף לרשימה: ' + name)
+    });
+  }
+  toggleItem(id) {
+    const it = this.state.items.find((x) => x.id === id); if (!it) return;
+    this.setState({
+      items: this.state.items.map((x) => x.id === id ? Object.assign({}, x, { done: !x.done }) : x),
+      activity: it.done ? this.state.activity : this.logged('הכניס לעגלה: ' + it.name)
+    });
+  }
+  removeItem(id) {
+    this.setState({ items: this.state.items.filter((x) => x.id !== id) });
+  }
+  clearCollected() {
+    const n = this.state.items.filter((x) => x.done).length; if (!n) return;
+    this.setState({ items: this.state.items.filter((x) => !x.done), activity: this.logged('סיים קנייה וניקה ' + n + ' פריטים') });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const raw = (this.props.partnerName ?? 'בת הזוג');
+    const partner = String(raw).trim() || 'בת הזוג';
+    const WHO = {
+      me: { label: 'נאור', bg: '#E3ECF8', fg: '#1D4A8F', solid: '#2457A6', initial: 'נ' },
+      her: { label: partner, bg: '#F8E9DF', fg: '#8F3F12', solid: '#B5531C', initial: partner.charAt(0) },
+      both: { label: 'שנינו', bg: '#ECE8F6', fg: '#4A3B8C', solid: '#5B4AA0', initial: '' }
+    };
+    const DUE = { 'היום': 0, 'מחר': 1, 'השבוע': 2 };
+    const pills = (opts, current, key, colored) => opts.map((o) => {
+      const on = o.key === current;
+      const solid = colored && WHO[o.key] ? WHO[o.key].solid : '#18212B';
+      return {
+        label: o.label, pressed: on ? 'true' : 'false',
+        bg: on ? solid : '#FFFFFF', fg: on ? '#FFFFFF' : '#18212B', border: on ? solid : '#C9D0D8',
+        pick: () => this.setState({ [key]: o.key })
+      };
+    });
+    const whoOpts = [{ key: 'me', label: 'נאור' }, { key: 'her', label: partner }, { key: 'both', label: 'שנינו' }];
+    const whenOpts = [{ key: 'היום', label: 'היום' }, { key: 'מחר', label: 'מחר' }, { key: 'השבוע', label: 'השבוע' }];
+
+    const tv = (t) => ({
+      id: t.id, title: t.title, done: t.done,
+      whoLabel: WHO[t.who].label, whoBg: WHO[t.who].bg, whoFg: WHO[t.who].fg,
+      dueLabel: t.due, dueColor: (t.due === 'היום' && !t.done) ? '#9A4515' : '#56616E',
+      titleColor: t.done ? '#5E6873' : '#18212B', deco: t.done ? 'line-through' : 'none',
+      boxBg: t.done ? '#18212B' : '#FFFFFF', boxBorder: t.done ? '#18212B' : '#7D8792',
+      pressed: t.done ? 'true' : 'false',
+      toggleLabel: (t.done ? 'החזרה לפתוחות: ' : 'סימון כבוצע: ') + t.title,
+      removeLabel: 'מחיקה: ' + t.title,
+      toggle: () => this.toggleTask(t.id), remove: () => this.removeTask(t.id)
+    });
+    const byDue = (a, b) => DUE[a.due] - DUE[b.due];
+    const matches = (t) => s.taskFilter === 'all' || t.who === s.taskFilter;
+    const openAll = s.tasks.filter((t) => !t.done);
+    const openTasks = openAll.filter(matches).sort(byDue).map(tv);
+    const doneTasks = s.tasks.filter((t) => t.done && matches(t)).map(tv);
+    const countOpen = (k) => openAll.filter((t) => k === 'all' || t.who === k).length;
+    const filterChips = [
+      { key: 'all', label: 'הכל · ' + countOpen('all') },
+      { key: 'me', label: 'שלי · ' + countOpen('me') },
+      { key: 'her', label: partner + ' · ' + countOpen('her') },
+      { key: 'both', label: 'משותף · ' + countOpen('both') }
+    ];
+    const todayTasks = openAll.filter((t) => t.due === 'היום').map(tv);
+
+    const rv = (r) => ({
+      id: r.id, title: r.title, time: r.time, done: r.done, repeat: r.repeat, hasRepeat: !!r.repeat,
+      whoLabel: WHO[r.who].label, whoBg: WHO[r.who].bg, whoFg: WHO[r.who].fg,
+      titleColor: r.done ? '#5E6873' : '#18212B', deco: r.done ? 'line-through' : 'none',
+      boxBg: r.done ? '#18212B' : '#FFFFFF', boxBorder: r.done ? '#18212B' : '#7D8792',
+      pressed: r.done ? 'true' : 'false',
+      toggleLabel: (r.done ? 'החזרה: ' : 'סימון כבוצעה: ') + r.title,
+      removeLabel: 'מחיקה: ' + r.title,
+      toggle: () => this.toggleRem(r.id), remove: () => this.removeRem(r.id)
+    });
+    const remSorted = s.reminders.slice().sort((a, b) => (a.done - b.done) || (a.time < b.time ? -1 : a.time > b.time ? 1 : 0));
+    const remGroups = ['היום', 'מחר', 'השבוע'].map((w) => {
+      const list = remSorted.filter((r) => r.when === w);
+      return { name: w, count: list.filter((r) => !r.done).length, items: list.map(rv) };
+    }).filter((g) => g.items.length > 0);
+    const todayOpenRems = remSorted.filter((r) => r.when === 'היום' && !r.done);
+    const nextRaw = todayOpenRems[0];
+    const next = nextRaw ? rv(nextRaw) : { title: '', time: '', whoLabel: '', toggle: () => {} };
+
+    const iv = (it) => ({
+      id: it.id, name: it.name, qty: it.qty,
+      byLabel: WHO[it.by].label, byBg: WHO[it.by].bg, byFg: WHO[it.by].fg, byInitial: WHO[it.by].initial,
+      pressed: it.done ? 'true' : 'false',
+      toggleLabel: (it.done ? 'הוצאה מהעגלה: ' : 'הכנסה לעגלה: ') + it.name,
+      removeLabel: 'הסרה מהרשימה: ' + it.name,
+      toggle: () => this.toggleItem(it.id), remove: () => this.removeItem(it.id)
+    });
+    const CATS = ['פירות וירקות', 'מוצרי חלב', 'מאפים', 'יבשים', 'ניקיון ובית', 'אחר'];
+    const openItems = s.items.filter((x) => !x.done);
+    const catGroups = CATS.map((c) => {
+      const list = openItems.filter((x) => x.cat === c);
+      return { name: c, count: list.length, items: list.map(iv) };
+    }).filter((g) => g.items.length > 0);
+    const collectedItems = s.items.filter((x) => x.done).map(iv);
+    const total = s.items.length;
+    const pct = total ? Math.round((collectedItems.length / total) * 100) : 0;
+
+    const feed = s.activity.slice(0, 4).map((a) => ({
+      id: a.id, text: a.text, time: a.time,
+      actorLabel: WHO[a.actor].label, initial: WHO[a.actor].initial, solid: WHO[a.actor].solid
+    }));
+
+    const nav = (t) => ({ fg: s.tab === t ? '#18212B' : '#56616E', bg: s.tab === t ? '#E1E6EC' : 'transparent', cur: s.tab === t ? 'page' : 'false' });
+    const nH = nav('home'), nT = nav('tasks'), nR = nav('reminders'), nS = nav('shopping');
+    const titles = { home: 'ערב טוב, נאור', tasks: 'משימות', reminders: 'תזכורות', shopping: 'רשימת קניות' };
+    const enter = (fn) => (e) => { if (e.key === 'Enter') fn(); };
+
+    return {
+      partner: partner, partnerInitial: WHO.her.initial,
+      screenTitle: titles[s.tab],
+      isHome: s.tab === 'home', isTasks: s.tab === 'tasks', isReminders: s.tab === 'reminders', isShopping: s.tab === 'shopping',
+      goHome: () => this.setState({ tab: 'home' }), goTasks: () => this.setState({ tab: 'tasks' }),
+      goReminders: () => this.setState({ tab: 'reminders' }), goShopping: () => this.setState({ tab: 'shopping' }),
+      navHomeFg: nH.fg, navHomeBg: nH.bg, homeCurrent: nH.cur,
+      navTasksFg: nT.fg, navTasksBg: nT.bg, tasksCurrent: nT.cur,
+      navRemFg: nR.fg, navRemBg: nR.bg, remCurrent: nR.cur,
+      navShopFg: nS.fg, navShopBg: nS.bg, shopCurrent: nS.cur,
+
+      openTaskCount: openAll.length, todayRemCount: todayOpenRems.length,
+      hasNext: !!nextRaw, noNext: !nextRaw, next: next,
+      todayTasks: todayTasks, noTodayTasks: todayTasks.length === 0,
+      feed: feed,
+
+      filterChips: pills(filterChips, s.taskFilter, 'taskFilter', false),
+      newTask: s.newTask,
+      onTaskInput: (e) => this.setState({ newTask: e.target.value }),
+      onTaskKey: enter(() => this.addTask()), addTask: () => this.addTask(),
+      taskWhoPills: pills(whoOpts, s.newTaskWho, 'newTaskWho', true),
+      taskDuePills: pills(whenOpts, s.newTaskDue, 'newTaskDue', false),
+      openTasks: openTasks, openFilteredCount: openTasks.length, noOpenTasks: openTasks.length === 0,
+      doneTasks: doneTasks, doneFilteredCount: doneTasks.length, hasDoneTasks: doneTasks.length > 0,
+
+      newRem: s.newRem, newRemTime: s.newRemTime,
+      onRemInput: (e) => this.setState({ newRem: e.target.value }),
+      onRemTime: (e) => this.setState({ newRemTime: e.target.value }),
+      onRemKey: enter(() => this.addRem()), addRem: () => this.addRem(),
+      remWhenPills: pills(whenOpts, s.newRemWhen, 'newRemWhen', false),
+      remWhoPills: pills(whoOpts, s.newRemWho, 'newRemWho', true),
+      toggleRepeat: () => this.setState({ newRemRepeat: !s.newRemRepeat }),
+      repeatPressed: s.newRemRepeat ? 'true' : 'false',
+      repeatBg: s.newRemRepeat ? '#18212B' : '#FFFFFF', repeatFg: s.newRemRepeat ? '#FFFFFF' : '#18212B', repeatBorder: s.newRemRepeat ? '#18212B' : '#C9D0D8',
+      remGroups: remGroups, noReminders: remGroups.length === 0,
+
+      newItem: s.newItem, newItemQty: s.newItemQty, newItemCat: s.newItemCat,
+      onItemInput: (e) => this.setState({ newItem: e.target.value }),
+      onItemQty: (e) => this.setState({ newItemQty: e.target.value }),
+      onItemCat: (e) => this.setState({ newItemCat: e.target.value }),
+      onItemKey: enter(() => this.addItem()), addItem: () => this.addItem(),
+      catGroups: catGroups, allCollected: catGroups.length === 0,
+      collectedItems: collectedItems, collected: collectedItems.length, hasCollected: collectedItems.length > 0,
+      clearCollected: () => this.clearCollected(),
+      totalItems: total, shopLeft: openItems.length, hasShopBadge: openItems.length > 0,
+      progressWidth: pct + '%'
+    };
+  }
+}
+</script>
+</body>
+</html>

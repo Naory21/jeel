@@ -1,0 +1,15 @@
+# local data and settings
+db.json
+db.json.tmp
+web/config.js
+.env
+.env.*
+*.local
+
+# tooling
+node_modules/
+supabase/.temp/
+supabase/.branches/
+.DS_Store
+Thumbs.db
+*.log
