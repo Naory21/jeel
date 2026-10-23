@@ -17,6 +17,7 @@ site_url = "https://naory21.github.io/jeel/"
 additional_redirect_urls = ["https://naory21.github.io/jeel/"]
 enable_signup = false
 
+# Email provider stays on (this key is the provider switch); new sign-ups are closed by auth.enable_signup above.
 [auth.email]
-enable_signup = false
+enable_signup = true
 otp_length = 6
